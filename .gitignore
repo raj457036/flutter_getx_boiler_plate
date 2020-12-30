@@ -40,6 +40,8 @@ app.*.symbols
 # Obfuscation related
 app.*.map.json
 
+
+# ------------------- REMOVE THESE IN PRODUCTION ----------------------
 **/android
 **/ios
 **/test
