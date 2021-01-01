@@ -2,6 +2,7 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'package:meta/meta.dart';
 
 import '../../core/core.dart';
+import 'logger.dart';
 
 class AssetLoader {
   AssetLoader._();
@@ -18,7 +19,11 @@ class AssetLoader {
       );
       return _source;
     } catch (e) {
-      print(e);
+      Log.write(
+        "Error occured while fetching asset at path: $fileName",
+        level: LogLevel.WARNING,
+        error: e,
+      );
       if (elseNull) return null;
       throw AssetLoadFailedException(e);
     }
@@ -37,7 +42,11 @@ class AssetLoader {
       );
       return _source;
     } catch (e) {
-      print(e);
+      Log.write(
+        "Error occured while fetching asset at path: $fileName",
+        level: LogLevel.WARNING,
+        error: e,
+      );
       if (elseNull) return null;
       throw AssetLoadFailedException(e);
     }
