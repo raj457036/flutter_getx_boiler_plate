@@ -1,3 +1,4 @@
+import 'package:boiler_plate/app/core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

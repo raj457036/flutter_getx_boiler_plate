@@ -21,9 +21,9 @@ class _Environment {
 
   Future<void> loadEnvironment({String path, bool force = false}) async {
     try {
-      final _source = await rootBundle.loadString(
-        path ?? "assets/secrets/secrets.json",
-        cache: !force,
+      final _source = await AssetLoader.instance.loadString(
+        path,
+        fromCache: !force,
       );
 
       final _parsedData = Map.from(json.decode(_source));

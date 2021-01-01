@@ -6,7 +6,7 @@ class DI extends Bindings {
   DI._();
 
   static DI _instance = DI._();
-  static DI instance = _instance;
+  static DI get instance => _instance;
 
   @override
   void dependencies() {

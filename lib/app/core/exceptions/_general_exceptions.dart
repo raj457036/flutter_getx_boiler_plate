@@ -9,3 +9,18 @@ class GeneralException extends BaseException {
           actualError: actualError,
         );
 }
+
+class AssetLoadFailedException extends GeneralException {
+  AssetLoadFailedException(Exception actualError)
+      : super(
+          actualError: actualError,
+          message: "Asset could not be loaded: $actualError",
+        );
+}
+
+class TranslationLoadFailedException extends GeneralException {
+  TranslationLoadFailedException()
+      : super(
+          message: "translation could not be loaded",
+        );
+}

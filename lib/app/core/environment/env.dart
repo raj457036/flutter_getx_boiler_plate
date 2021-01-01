@@ -2,11 +2,12 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/painting.dart';
-import 'package:flutter/services.dart' show rootBundle;
+
+import '../../utils/function/asset_loader.dart';
 
 part '_colors.dart';
-part '_values.dart';
 part '_environments.dart';
+part '_values.dart';
 
 class Env {
   final _ColorStyles _colorStyles = _ColorStyles();
@@ -22,7 +23,7 @@ class Env {
   static _Values get values => instance._values;
   static _Environment get environment => instance._environment;
 
-  Future<void> init() async {
-    await environment.loadEnvironment();
+  Future<void> init([String secretFilePath = "secrets/secrets.json"]) async {
+    await environment.loadEnvironment(path: secretFilePath);
   }
 }
