@@ -5,12 +5,18 @@ import '../controllers/global_controller.dart';
 import '../core/core.dart';
 
 class AppRouteObserver extends GetObserver {
-  final GlobalController _controller = Get.find<GlobalController>();
+  GlobalController _controller;
 
   AppRouteObserver._();
 
   static AppRouteObserver _instance = AppRouteObserver._();
   static AppRouteObserver get instance => _instance;
+
+  GlobalController get controller {
+    if (_controller != null) return _controller;
+    _controller = Get.find<GlobalController>();
+    return _controller;
+  }
 
   @override
   void didPop(Route route, Route previousRoute) {

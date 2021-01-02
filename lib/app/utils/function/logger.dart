@@ -15,15 +15,52 @@ class LogLevel {
   static const int OFF = 2000;
 }
 
+typedef bool LogConditionChecker({int level, Object error});
+typedef void LogWriter(
+  String message, {
+  String name,
+  int level,
+  Object error,
+  DateTime time,
+});
+
 class Log {
-  const Log._();
+  Log._();
+
+  static Log _instance = Log._();
+  static Log get instance => _instance;
+  static Log get I => _instance;
+
+  List<LogConditionChecker> _checkers = const [];
+  LogWriter _writer;
+  String _name;
 
   static write(String message, {int level, Object error}) {
-    log(
-      message,
-      time: DateTime.now(),
-      level: level ?? LogLevel.ALL,
-      error: error,
-    );
+    for (var checker in _instance._checkers) {
+      if (!checker(error: error, level: level)) return;
+    }
+
+    if (_instance._writer != null)
+      _instance._writer(
+        message,
+        name: _instance._name,
+        level: level,
+        error: error,
+        time: DateTime.now(),
+      );
+    else
+      log(
+        message,
+        name: _instance._name ?? '',
+        time: DateTime.now(),
+        level: level ?? LogLevel.ALL,
+        error: error,
+      );
   }
+
+  setConditions(List<LogConditionChecker> checkers) =>
+      _checkers = checkers ?? const [];
+
+  setLogWriter(LogWriter writer) => _writer = writer;
+  setName(String name) => _name = name;
 }
