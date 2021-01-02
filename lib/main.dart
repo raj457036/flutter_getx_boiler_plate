@@ -15,6 +15,11 @@ import 'app/utils/function/di.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  // await Env.I.init();
+  await GlobalTranslation.setup({
+    "en_US": "translations/en_US.json",
+  });
+
   runApp(
     GetMaterialApp(
       title: "Application",
@@ -22,6 +27,8 @@ Future<void> main() async {
       getPages: AppPages.routes,
       navigatorObservers: [AppRouteObserver.instance],
       initialBinding: DI.instance,
+      locale: Locale("en", "US"),
+      // locale: Get.deviceLocale,
     ),
   );
 }

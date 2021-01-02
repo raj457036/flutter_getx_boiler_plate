@@ -15,6 +15,7 @@ class GlobalTranslation extends Translations {
   static GlobalTranslation _instance = GlobalTranslation._();
 
   static GlobalTranslation get instance => _instance;
+  static GlobalTranslation get I => _instance;
 
   @override
   Map<String, Map<String, String>> get keys {
@@ -33,7 +34,7 @@ class GlobalTranslation extends Translations {
     return Map<String, String>.from(json.decode(source));
   }
 
-  static setup(Map<String, String> translationFilesPath) async {
+  static Future<void> setup(Map<String, String> translationFilesPath) async {
     final keys = translationFilesPath.keys;
     final loader = AssetLoader.instance;
 

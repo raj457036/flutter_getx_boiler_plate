@@ -3,9 +3,17 @@ part of 'exceptions.dart';
 class NetworkException extends BaseException {
   const NetworkException({
     String message,
-    Exception actualError,
+    actualError,
   }) : super(
-          message: message ?? "network exception encounterd",
+          message: message ?? "Network exception encounterd",
+          actualError: actualError,
+        );
+}
+
+class NoInternetConnectionException extends NetworkException {
+  NoInternetConnectionException([actualError])
+      : super(
+          message: "Internet not available",
           actualError: actualError,
         );
 }

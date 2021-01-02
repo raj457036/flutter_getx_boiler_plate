@@ -1,3 +1,6 @@
 {
-    "cat_name": "Cat Name"
+    "failure_base_network": "Network failure encountered.",
+    "failure_no_internet": "Internet not available",
+    "failure_base_general": "Some error encountered.",
+    "failure_base_database": "Database error encountered."
 }

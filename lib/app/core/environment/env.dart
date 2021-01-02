@@ -18,10 +18,10 @@ class Env {
 
   static final Env _instance = Env._();
 
-  static Env get instance => _instance;
-  static _ColorStyles get colors => instance._colorStyles;
-  static _Values get values => instance._values;
-  static _Environment get environment => instance._environment;
+  static Env get I => _instance;
+  static _ColorStyles get colors => I._colorStyles;
+  static _Values get values => I._values;
+  static _Environment get environment => I._environment;
 
   Future<void> init([String secretFilePath = "secrets/secrets.json"]) async {
     await environment.loadEnvironment(path: secretFilePath);
