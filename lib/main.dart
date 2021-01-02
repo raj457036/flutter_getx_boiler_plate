@@ -1,6 +1,3 @@
-import 'package:boiler_plate/app/data/models/note_model.dart';
-import 'package:boiler_plate/app/data/models/user_model.dart';
-import 'package:boiler_plate/app/global/storage/storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

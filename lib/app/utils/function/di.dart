@@ -1,7 +1,7 @@
-import 'package:boiler_plate/app/global/storage/storage.dart';
 import 'package:get/get.dart';
 
 import '../../controllers/global_controller.dart';
+// import '../../global/storage/storage.dart';
 
 class DI {
   DI._();
@@ -11,6 +11,6 @@ class DI {
 
   void init() async {
     Get.put<GlobalController>(GlobalController());
-    await DbStorageService.init();
+    // await DbStorageService.init();
   }
 }
