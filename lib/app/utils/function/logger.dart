@@ -88,13 +88,13 @@ class LogService {
   static LogService get I => _instance;
 
   final _colorizer = {
-    LogLevel.NORMAL: AnsiTextColorizer.none(),
-    LogLevel.DEBUG: AnsiTextColorizer.fg(AnsiTextColorizer.grey(0.5)),
-    LogLevel.CONFIG: AnsiTextColorizer.fg(7),
-    LogLevel.INFO: AnsiTextColorizer.fg(12),
-    LogLevel.ERROR: AnsiTextColorizer.fg(196),
-    LogLevel.SHOUT: AnsiTextColorizer.fg(199),
-    LogLevel.WARNING: AnsiTextColorizer.fg(208),
+    LogLevel.NORMAL: AnsiTextColorizer.fg(7),
+    LogLevel.DEBUG: AnsiTextColorizer.fg(2),
+    LogLevel.CONFIG: AnsiTextColorizer.fg(6),
+    LogLevel.INFO: AnsiTextColorizer.fg(4),
+    LogLevel.ERROR: AnsiTextColorizer.fg(1),
+    LogLevel.SHOUT: AnsiTextColorizer.fg(5),
+    LogLevel.WARNING: AnsiTextColorizer.fg(3),
   };
 
   final _names = {
