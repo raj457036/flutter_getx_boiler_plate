@@ -1,9 +1,9 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:flutter/painting.dart';
 
 import '../../utils/function/asset_loader.dart';
+import '../../utils/function/logger.dart';
 
 part '_colors.dart';
 part '_environments.dart';

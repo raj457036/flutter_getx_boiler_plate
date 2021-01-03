@@ -84,14 +84,14 @@ class InternetConnection implements NetworkAvailablity {
       );
       isConnected = true;
     } on SocketException catch (_) {
-      Log.write(
+      LogService.write(
         "No internet available: $_",
         level: LogLevel.INFO,
       );
 
       isConnected = false;
     } on TimeoutException catch (_) {
-      Log.write(
+      LogService.write(
         "Internet check timeout after $timeout seconds",
         level: LogLevel.INFO,
       );
@@ -104,7 +104,7 @@ class InternetConnection implements NetworkAvailablity {
 
   Future<bool> _checkForActiveConnection() async {
     if (_precheck != null && !await _precheck()) {
-      Log.write(
+      LogService.write(
         "Internet connection test: Pre-check condition failed",
         level: LogLevel.INFO,
       );
@@ -122,7 +122,7 @@ class InternetConnection implements NetworkAvailablity {
     isConnected = (await Future.wait(futureChecks)).contains(true);
 
     if (_postcheck != null && !await _postcheck()) {
-      Log.write(
+      LogService.write(
         "Internet connection test: Post-check condition failed",
         level: LogLevel.INFO,
       );

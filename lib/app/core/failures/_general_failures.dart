@@ -12,7 +12,7 @@ class BaseGeneralFailure extends Failure {
     Exception actualException,
   }) : super(
           code: BASE_GENERAL_FAILURE_CODE,
-          message: message ?? "failure_base_general".tr,
+          message: message ?? LocaleKeys.failures_base_general,
           actualException: actualException,
         );
 }

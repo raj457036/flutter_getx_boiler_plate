@@ -1,0 +1,18 @@
+{
+
+    "failures": {
+        "base_network": "Network failure encountered.",
+        "no_internet": "Internet not available",
+        "base_general": "Some error encountered.",
+        "base_database": "Database error encountered."
+    },
+    "buttons": {
+        "login": "Login",
+        "sign_in": "Sign-in",
+        "logout": "Logout",
+        "sign_in_fb": "Sign-in with Facebook",
+        "sign_in_google": "Sign-in with Google",
+        "sign_in_apple": "Sign-in with Apple"
+    }
+
+}

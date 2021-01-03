@@ -13,7 +13,7 @@ class CacheService extends GetxService {
   GetStorage box({String name, Map<String, dynamic> initialData}) {
     if (name == null) return GetStorage("GetStorage", null, initialData);
     if (!_boxes.contains(name)) {
-      Log.write("Box $name not initialized");
+      LogService.write("Box $name not initialized");
       return null;
     }
     return GetStorage(name, null, initialData);

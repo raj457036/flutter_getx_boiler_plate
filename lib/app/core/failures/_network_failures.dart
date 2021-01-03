@@ -13,7 +13,7 @@ class BaseNetworkFailure extends Failure {
     Exception actualException,
   }) : super(
           code: BASE_NETWORK_FAILURE_CODE,
-          message: message ?? "failure_base_network".tr,
+          message: message ?? LocaleKeys.failures_base_network,
           actualException: actualException,
         );
 }
@@ -22,7 +22,7 @@ class NoInternetConnectionFailure extends Failure {
   NoInternetConnectionFailure([actualException])
       : super(
           code: NO_INTERNET_CONNECTION_FAILURE_CODE,
-          message: "failure_no_internet".tr,
+          message: LocaleKeys.failures_no_internet,
           actualException: actualException,
         );
 }

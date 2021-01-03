@@ -1,4 +1,4 @@
-import 'package:get/get.dart';
+import '../../../generated/locales.g.dart';
 
 part '_database_failures.dart';
 part '_general_failures.dart';
