@@ -1,8 +1,7 @@
 import 'package:get/get.dart';
 
 import '../../controllers/global_controller.dart';
-
-// import '../../global/storage/storage.dart';
+import '../../global/global.dart';
 
 class DI {
   DI._();
@@ -11,7 +10,7 @@ class DI {
   static DI get instance => _instance;
 
   void init() async {
+    await loadGlobalModules();
     Get.put<GlobalController>(GlobalController());
-    // await DbStorageService.init();
   }
 }

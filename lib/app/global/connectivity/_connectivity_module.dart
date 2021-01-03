@@ -1,11 +1,9 @@
-import 'package:connectivity/connectivity.dart';
+part of 'connectivity_module.dart';
 
-class ConnectivityHandler {
-  ConnectivityHandler._();
-
-  static ConnectivityHandler _instance = ConnectivityHandler._();
-  static ConnectivityHandler get instance => _instance;
-  static ConnectivityHandler get I => _instance;
+class ConnectivityModule extends GetxService {
+  ConnectivityModule._();
+  static ConnectivityModule _instance = ConnectivityModule._();
+  static ConnectivityModule get instance => _instance;
 
   final Connectivity _connectivity = Connectivity();
 

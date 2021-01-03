@@ -1,16 +1,23 @@
-import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
+import '../../core/core.dart';
 import '../../utils/function/logger.dart';
 
-class CacheService extends GetxService {
-  CacheService._();
-  static CacheService get instance => Get.find<CacheService>();
-  static CacheService get I => instance;
+class CacheServiceModule {
+  CacheServiceModule._();
+  static CacheServiceModule _instance = CacheServiceModule._();
+  static CacheServiceModule get instance => _instance;
 
   static Set<String> _boxes = {};
 
+  bool _initialized = false;
+
   GetStorage box({String name, Map<String, dynamic> initialData}) {
+    if (!_initialized)
+      throw BaseException(
+        message: "CacheServiceModule is not initialized yet.",
+      );
+
     if (name == null) return GetStorage("GetStorage", null, initialData);
     if (!_boxes.contains(name)) {
       LogService.write("Box $name not initialized");
@@ -20,8 +27,6 @@ class CacheService extends GetxService {
   }
 
   static init([List<String> boxes = const []]) async {
-    Get.lazyPut<CacheService>(() => CacheService._());
-
     _boxes.addAll([...(boxes ?? const [])]);
 
     final _initFuture = [
@@ -34,6 +39,8 @@ class CacheService extends GetxService {
     await Future.wait(
       _initFuture,
     );
+
+    _instance._initialized = true;
   }
 
   Future<void> erase(String name) async {

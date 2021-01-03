@@ -1,5 +1,4 @@
 import 'package:flutter/services.dart' show rootBundle;
-
 import 'package:meta/meta.dart';
 
 import '../../core/core.dart';

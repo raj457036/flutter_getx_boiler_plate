@@ -1,4 +1,3 @@
-import 'package:boiler_plate/app/utils/function/logger.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -6,6 +5,7 @@ import 'app/core/translations/translations.dart';
 import 'app/routes/app_pages.dart';
 import 'app/routes/app_route_observer.dart';
 import 'app/utils/function/di.dart';
+import 'app/utils/function/logger.dart';
 import 'generated/locales.g.dart';
 
 Future<void> main() async {

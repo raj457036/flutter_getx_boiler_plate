@@ -4,7 +4,8 @@
         "base_network": "Network failure encountered.",
         "no_internet": "Internet not available",
         "base_general": "Some error encountered.",
-        "base_database": "Database error encountered."
+        "base_database": "Database error encountered.",
+        "base": "Some Failure encountered."
     },
     "buttons": {
         "login": "Login",

@@ -1,9 +1,4 @@
-import 'dart:async';
-import 'dart:io';
-
-import 'package:meta/meta.dart';
-
-import '../../utils/function/logger.dart';
+part of 'connectivity_module.dart';
 
 abstract class NetworkAvailablity {
   Future<bool> get isAvailable;
@@ -28,11 +23,12 @@ class AddressOption {
   });
 }
 
-class InternetConnection implements NetworkAvailablity {
-  InternetConnection._();
-  static InternetConnection _instance = InternetConnection._();
-  static InternetConnection get instance => _instance;
-  static InternetConnection get I => _instance;
+class InternetConnectionChecker implements NetworkAvailablity {
+  InternetConnectionChecker._();
+  static InternetConnectionChecker _instance = InternetConnectionChecker._();
+  static InternetConnectionChecker get instance => _instance;
+
+  static InternetConnectionChecker get I => instance;
 
   InternetConnectionCondition _precheck, _postcheck;
   List<AddressOption> _options = [
@@ -40,15 +36,15 @@ class InternetConnection implements NetworkAvailablity {
   ];
 
   static void setAddressOptions(List<AddressOption> options) {
-    _instance._options = [_instance._options.first, ...(options ?? [])];
+    I._options = [I._options.first, ...(options ?? [])];
   }
 
   static void setPreAndPostChecks({
     InternetConnectionCondition precheck,
     InternetConnectionCondition postcheck,
   }) {
-    _instance._precheck = precheck;
-    _instance._postcheck = postcheck;
+    I._precheck = precheck;
+    I._postcheck = postcheck;
   }
 
   @override
