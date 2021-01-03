@@ -68,16 +68,6 @@ class AnsiTextColorizer {
       return msg;
     }
   }
-
-  AnsiTextColorizer toFg() => AnsiTextColorizer.fg(bg);
-
-  AnsiTextColorizer toBg() => AnsiTextColorizer.bg(fg);
-
-  String get resetForeground => color ? '${ansiEsc}39m' : '';
-
-  String get resetBackground => color ? '${ansiEsc}49m' : '';
-
-  static int grey(double level) => 232 + (level.clamp(0.0, 1.0) * 23).round();
 }
 
 class LogService {
