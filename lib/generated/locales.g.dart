@@ -12,12 +12,6 @@ class LocaleKeys {
   static const failures_base_general = 'failures_base_general';
   static const failures_base_database = 'failures_base_database';
   static const failures_base = 'failures_base';
-  static const buttons_login = 'buttons_login';
-  static const buttons_sign_in = 'buttons_sign_in';
-  static const buttons_logout = 'buttons_logout';
-  static const buttons_sign_in_fb = 'buttons_sign_in_fb';
-  static const buttons_sign_in_google = 'buttons_sign_in_google';
-  static const buttons_sign_in_apple = 'buttons_sign_in_apple';
 }
 
 class Locales {
@@ -27,11 +21,5 @@ class Locales {
     'failures_base_general': 'Some error encountered.',
     'failures_base_database': 'Database error encountered.',
     'failures_base': 'Some Failure encountered.',
-    'buttons_login': 'Login',
-    'buttons_sign_in': 'Sign-in',
-    'buttons_logout': 'Logout',
-    'buttons_sign_in_fb': 'Sign-in with Facebook',
-    'buttons_sign_in_google': 'Sign-in with Google',
-    'buttons_sign_in_apple': 'Sign-in with Apple',
   };
 }

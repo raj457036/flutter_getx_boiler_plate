@@ -6,14 +6,6 @@
         "base_general": "Some error encountered.",
         "base_database": "Database error encountered.",
         "base": "Some Failure encountered."
-    },
-    "buttons": {
-        "login": "Login",
-        "sign_in": "Sign-in",
-        "logout": "Logout",
-        "sign_in_fb": "Sign-in with Facebook",
-        "sign_in_google": "Sign-in with Google",
-        "sign_in_apple": "Sign-in with Apple"
     }
 
 }
