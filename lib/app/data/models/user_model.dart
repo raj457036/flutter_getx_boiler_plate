@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'note_model.dart';
-import '../../global/storage/storage.dart';
 import 'package:equatable/equatable.dart';
+
+import '../../global/storage/storage.dart';
 
 class UserModel extends DbBinder<UserModel> with EquatableMixin {
   final String name;
