@@ -38,14 +38,14 @@ class _Environment {
       };
       _initialized = true;
     } catch (e) {
-      LogService.write(
+      LogService.warning(
           "Error occured while fetching enviorments from asset folder: $e");
     }
   }
 
   T config<T>(String key, {Environment overried, dynamic defaultValue}) {
     if (!_initialized)
-      LogService.write(
+      LogService.warning(
           "Enviroment variables are not initilaized. call Env.instance.init() in main");
 
     if (overried != null) return _flavours[overried][key];

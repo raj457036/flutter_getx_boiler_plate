@@ -1,5 +1,6 @@
-import '../../core/core.dart';
-import '../function/either.dart';
+import '../exception_failure_mapper.dart';
+import '../failures/failures.dart';
+import 'either.dart';
 
 abstract class BaseRepository {
   Either<Failure, dynamic> handleException(e) {

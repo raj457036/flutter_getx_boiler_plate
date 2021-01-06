@@ -28,7 +28,9 @@ class InternetConnectionChecker implements NetworkAvailablity {
   static InternetConnectionChecker _instance = InternetConnectionChecker._();
   static InternetConnectionChecker get instance => _instance;
 
-  static InternetConnectionChecker get I => instance;
+  /// gives new instance of [InternetConnectionChecker] class
+  factory InternetConnectionChecker.newInstance() =>
+      InternetConnectionChecker._();
 
   InternetConnectionCondition _precheck, _postcheck;
   List<AddressOption> _options = [
@@ -36,15 +38,15 @@ class InternetConnectionChecker implements NetworkAvailablity {
   ];
 
   static void setAddressOptions(List<AddressOption> options) {
-    I._options = [I._options.first, ...(options ?? [])];
+    instance._options = [instance._options.first, ...(options ?? [])];
   }
 
   static void setPreAndPostChecks({
     InternetConnectionCondition precheck,
     InternetConnectionCondition postcheck,
   }) {
-    I._precheck = precheck;
-    I._postcheck = postcheck;
+    instance._precheck = precheck;
+    instance._postcheck = postcheck;
   }
 
   @override
@@ -80,16 +82,14 @@ class InternetConnectionChecker implements NetworkAvailablity {
       );
       isConnected = true;
     } on SocketException catch (_) {
-      LogService.write(
+      LogService.info(
         "No internet available: $_",
-        level: LogLevel.INFO,
       );
 
       isConnected = false;
     } on TimeoutException catch (_) {
-      LogService.write(
+      LogService.info(
         "Internet check timeout after $timeout seconds",
-        level: LogLevel.INFO,
       );
       isConnected = false;
     } finally {
@@ -100,9 +100,8 @@ class InternetConnectionChecker implements NetworkAvailablity {
 
   Future<bool> _checkForActiveConnection() async {
     if (_precheck != null && !await _precheck()) {
-      LogService.write(
+      LogService.info(
         "Internet connection test: Pre-check condition failed",
-        level: LogLevel.INFO,
       );
       return false;
     }
@@ -118,9 +117,8 @@ class InternetConnectionChecker implements NetworkAvailablity {
     isConnected = (await Future.wait(futureChecks)).contains(true);
 
     if (_postcheck != null && !await _postcheck()) {
-      LogService.write(
+      LogService.info(
         "Internet connection test: Post-check condition failed",
-        level: LogLevel.INFO,
       );
       isConnected = false;
     }

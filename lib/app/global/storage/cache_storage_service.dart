@@ -1,7 +1,7 @@
 import 'package:get_storage/get_storage.dart';
 
 import '../../core/core.dart';
-import '../../utils/function/logger.dart';
+import '../../core/logger/logger.dart';
 
 class CacheServiceModule {
   CacheServiceModule._();
@@ -20,7 +20,7 @@ class CacheServiceModule {
 
     if (name == null) return GetStorage("GetStorage", null, initialData);
     if (!_boxes.contains(name)) {
-      LogService.write("Box $name not initialized");
+      LogService.warning("Box $name not initialized");
       return null;
     }
     return GetStorage(name, null, initialData);

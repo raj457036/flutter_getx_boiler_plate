@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'app/core/core.dart';
 import 'app/core/translations/translations.dart';
 import 'app/routes/app_pages.dart';
 import 'app/routes/app_route_observer.dart';
 import 'app/utils/function/di.dart';
-import 'app/utils/function/logger.dart';
 import 'generated/locales.g.dart';
 
 Future<void> main() async {
@@ -17,7 +17,7 @@ Future<void> main() async {
   LogService.I.enableSeperator = true;
   LogService.I.enableSeperatorSpace = true;
 
-  LogService.write("Normal");
+  LogService.normal("Normal");
   LogService.debug("Debug");
   LogService.config("Config");
   LogService.info("Info");

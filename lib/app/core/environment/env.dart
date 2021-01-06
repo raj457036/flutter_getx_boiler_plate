@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/painting.dart';
 
 import '../../utils/function/asset_loader.dart';
-import '../../utils/function/logger.dart';
+import '../logger/logger.dart';
 
 part '_colors.dart';
 part '_environments.dart';
