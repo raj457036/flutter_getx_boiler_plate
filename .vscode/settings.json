@@ -1,0 +1,6 @@
+{
+    "dart_data_class_generator.constructor.default_values": true,
+    "dart_data_class_generator.constructor.required": true,
+    "dart_data_class_generator.fromMap.default_values": true,
+    "dart_data_class_generator.useEquatable": true,
+}

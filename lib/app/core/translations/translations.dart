@@ -14,6 +14,6 @@ class GlobalTranslation extends Translations {
   @override
   Map<String, Map<String, String>> get keys => _translations;
 
-  setup(Map<String, Map<String, String>> translations) =>
+  void setup(Map<String, Map<String, String>> translations) =>
       _translations = translations;
 }

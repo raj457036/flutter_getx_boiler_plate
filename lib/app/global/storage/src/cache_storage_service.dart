@@ -1,7 +1,7 @@
 import 'package:get_storage/get_storage.dart';
 
-import '../../core/core.dart';
-import '../../core/logger/logger.dart';
+import '../../../core/core.dart';
+import '../../../core/logger/logger.dart';
 
 class CacheServiceModule {
   CacheServiceModule._();
@@ -14,8 +14,9 @@ class CacheServiceModule {
 
   GetStorage box({String name, Map<String, dynamic> initialData}) {
     if (!_initialized)
-      throw BaseException(
-        message: "CacheServiceModule is not initialized yet.",
+      throw DatabaseException(
+        message: "CacheServiceModule is not initialized yet."
+            " consider calling CacheServiceModule.init() in main",
       );
 
     if (name == null) return GetStorage("GetStorage", null, initialData);
@@ -26,8 +27,15 @@ class CacheServiceModule {
     return GetStorage(name, null, initialData);
   }
 
-  static init([List<String> boxes = const []]) async {
-    _boxes.addAll([...(boxes ?? const [])]);
+  static Future<void> init(
+      {List<String> boxes = const [],
+      List<Type> cachebleModels = const []}) async {
+    _boxes.addAll([
+      ...boxes,
+      ...cachebleModels.map(
+        (e) => e.toString(),
+      )
+    ]);
 
     final _initFuture = [
       GetStorage.init(),
@@ -41,6 +49,13 @@ class CacheServiceModule {
     );
 
     _instance._initialized = true;
+  }
+
+  initIfNotExists(String name) async {
+    if (!_boxes.contains(name)) {
+      await GetStorage.init(name);
+      _boxes.add(name);
+    }
   }
 
   Future<void> erase(String name) async {
