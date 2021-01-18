@@ -28,13 +28,13 @@ class _Environment {
 
       final _parsedData = Map.from(json.decode(_source));
 
-      _flavours[Environment.production] = {
-        _parsedData['production'],
-        _flavours[Environment.production]
+      _flavours[Environment.production] = <dynamic, dynamic>{
+        ..._parsedData['production'],
+        ..._flavours[Environment.production]
       };
-      _flavours[Environment.development] = {
-        _parsedData['development'],
-        _flavours[Environment.development]
+      _flavours[Environment.development] = <dynamic, dynamic>{
+        ..._parsedData['development'],
+        ..._flavours[Environment.development]
       };
       _initialized = true;
     } catch (e) {
