@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:io';
+
 import '../../generated/locales.g.dart';
 import 'exceptions/exceptions.dart';
 import 'failures/failures.dart';
@@ -11,4 +14,6 @@ final EXCEPTION_FAILURE_MAP = <Type, FailureCallback>{
   DatabaseException: (e) => BaseDatabaseFailure(actualException: e),
   NetworkException: (e) => BaseNetworkFailure(actualException: e),
   NoInternetConnectionException: (e) => NoInternetConnectionFailure(e),
+  SocketException: (e) => NoInternetConnectionFailure(e),
+  TimeoutException: (e) => RequestTimeoutFailure(e),
 };

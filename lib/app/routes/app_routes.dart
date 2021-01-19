@@ -3,8 +3,12 @@ part of 'app_pages.dart';
 
 abstract class Routes {
   static const HOME = _Paths.HOME;
+  static const NOT_FOUND = _Paths.NOT_FOUND;
+  static const ERROR_ENCOUNTERED = _Paths.ERROR_ENCOUNTERED;
 }
 
 abstract class _Paths {
   static const HOME = '/home';
+  static const NOT_FOUND = '/not-found';
+  static const ERROR_ENCOUNTERED = '/error-encountered';
 }

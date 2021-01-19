@@ -4,6 +4,7 @@ part of 'failures.dart';
 
 const int BASE_NETWORK_FAILURE_CODE = 400000;
 const int NO_INTERNET_CONNECTION_FAILURE_CODE = 400001;
+const int CONNECTION_REQUEST_TIMEOUT_FAILURE_CODE = 400002;
 
 // --------------------- classes ---------------------
 
@@ -23,6 +24,15 @@ class NoInternetConnectionFailure extends Failure {
       : super(
           code: NO_INTERNET_CONNECTION_FAILURE_CODE,
           message: LocaleKeys.failures_no_internet,
+          actualException: actualException,
+        );
+}
+
+class RequestTimeoutFailure extends Failure {
+  RequestTimeoutFailure([actualException])
+      : super(
+          code: CONNECTION_REQUEST_TIMEOUT_FAILURE_CODE,
+          message: LocaleKeys.failures_timeout,
           actualException: actualException,
         );
 }
