@@ -1,5 +1,5 @@
 class LogLoad {
-  final String message;
+  final Object message;
   final int level;
   final Object error;
 

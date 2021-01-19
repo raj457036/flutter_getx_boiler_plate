@@ -23,7 +23,7 @@ class AppRouteObserver extends GetObserver {
     super.didPop(route, previousRoute);
 
     if (previousRoute.settings.name == Env.values.loaderRouteName) {
-      _controller.stopLoading();
+      controller.stopLoading();
     }
   }
 
@@ -31,7 +31,7 @@ class AppRouteObserver extends GetObserver {
   void didPush(Route route, Route previousRoute) {
     super.didPush(route, previousRoute);
     if (route.settings.name == Env.values.loaderRouteName) {
-      _controller.startLoading();
+      controller.startLoading();
     }
   }
 }

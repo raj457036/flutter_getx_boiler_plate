@@ -82,7 +82,7 @@ class LogService {
 
     if (_instance._writer != null)
       _instance._writer(
-        _msg,
+        _msg.toString(),
         name: _name,
         level: _level,
         errorObj: load.error,
@@ -90,7 +90,7 @@ class LogService {
       );
     else
       log(
-        _msg,
+        _msg.toString(),
         name: _name,
         time: _timestamp,
         level: _level,
@@ -98,19 +98,19 @@ class LogService {
       );
   }
 
-  static normal(String message, {Object errorObj}) =>
+  static normal(Object message, {Object errorObj}) =>
       write(LogLoad(message, level: LogLevel.NORMAL, error: errorObj));
-  static debug(String message, {Object errorObj}) =>
+  static debug(Object message, {Object errorObj}) =>
       write(LogLoad(message, level: LogLevel.DEBUG, error: errorObj));
-  static error(String message, {Object errorObj}) =>
+  static error(Object message, {Object errorObj}) =>
       write(LogLoad(message, level: LogLevel.ERROR, error: errorObj));
-  static warning(String message, {Object errorObj}) =>
+  static warning(Object message, {Object errorObj}) =>
       write(LogLoad(message, level: LogLevel.WARNING, error: errorObj));
-  static info(String message, {Object errorObj}) =>
+  static info(Object message, {Object errorObj}) =>
       write(LogLoad(message, level: LogLevel.INFO, error: errorObj));
-  static shout(String message, {Object errorObj}) =>
+  static shout(Object message, {Object errorObj}) =>
       write(LogLoad(message, level: LogLevel.SHOUT, error: errorObj));
-  static config(String message, {Object errorObj}) =>
+  static config(Object message, {Object errorObj}) =>
       write(LogLoad(message, level: LogLevel.CONFIG, error: errorObj));
 
   setConditions(List<LogConditionChecker> checkers) =>
