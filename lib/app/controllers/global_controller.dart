@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../core/core.dart';
+
 class GlobalController extends GetxController {
   final _loaderOpened = false.obs;
 
@@ -26,5 +28,9 @@ class GlobalController extends GetxController {
 
   stopLoading() {
     _loaderOpened.value = false;
+  }
+
+  handleFailure(Failure failure) {
+    LogService.error(failure.message);
   }
 }

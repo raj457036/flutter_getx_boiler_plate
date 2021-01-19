@@ -11,6 +11,25 @@
     "route": {
         "404_not_found": "Page not found",
         "400_error": "Error Encountered"
+    },
+
+    "firebase": {
+        "failure": "Firebase failure",
+        "invalid_email": "Invalid Email.",
+        "user_disabled": "User Disabled.",
+        "user_not_found": "User not found.",
+        "wrong_password": "Wrong Password.",
+        "operation_not_allowed": "Operation not allowed.",
+        "email_already_in_use": "Email already in use.",
+        "weak_password": "Weak Password detected.",
+
+
+        "account_exists_with_different_credential": "Account exists with different credential",
+        "invalid_credential": "Invalid credential",
+        "invalid_verification_code": "Invalid verification code",
+        "invalid_verification_id": "Invalid verification id",
+
+        "invalid_phone_number": "Invalid phone number entered."
     }
 
 }
