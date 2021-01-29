@@ -1,3 +1,4 @@
+import 'package:boiler_plate/app/global/firebase/analytics/analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -32,7 +33,10 @@ Future<void> main() async {
       title: "Application",
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
-      navigatorObservers: [AppRouteObserver.instance],
+      navigatorObservers: [
+        AppRouteObserver.instance,
+        FirebaseAnalyticsProvider.instance.observer,
+      ],
       locale: Locale('en', "US"),
       translations: GlobalTranslation.I,
     ),

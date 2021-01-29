@@ -1,5 +1,4 @@
 import 'src/task_runners/runners/message_printer.dart';
-
 import 'src/task_runners/task_runner.dart';
 
 typedef TaskRunner TaskFetcher();

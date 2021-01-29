@@ -31,6 +31,7 @@ dependencies:
   cloud_firestore: ^0.16.0
   firebase_messaging: ^8.0.0-dev.14
   firebase_dynamic_links: ^0.7.0+1
+  firebase_analytics: ^7.0.1
   flutter_facebook_auth: ^2.0.0+1
   flutter_twitter_login: ^1.1.0
   get: 3.24.0
