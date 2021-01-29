@@ -25,6 +25,8 @@ class AppRouteObserver extends GetObserver {
     if (previousRoute.settings.name == Env.values.loaderRouteName) {
       controller.stopLoading();
     }
+
+    controller.onRoutePop();
   }
 
   @override
@@ -33,5 +35,6 @@ class AppRouteObserver extends GetObserver {
     if (route.settings.name == Env.values.loaderRouteName) {
       controller.startLoading();
     }
+    controller.onRoutePush(route);
   }
 }
