@@ -1,6 +1,7 @@
-import 'package:boiler_plate/app/utils/overlays/loaders/loaders.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../../utils/overlays/loaders/loaders.dart';
 
 class HomeController extends GetxController {
   final count = 0.obs;

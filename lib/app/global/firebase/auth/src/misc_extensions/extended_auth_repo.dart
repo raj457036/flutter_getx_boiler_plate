@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 
 import '../../../../../../generated/locales.g.dart';
 import '../../../../../core/core.dart';
-import 'firebase_failures.dart';
 import 'extended_auth_failures.dart';
+import 'firebase_failures.dart';
 
 abstract class FirebaseAuthExtendedRepo extends BaseRepository {
   @override

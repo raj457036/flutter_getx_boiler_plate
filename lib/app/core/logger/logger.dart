@@ -5,10 +5,10 @@ import 'src/log_levels.dart';
 import 'src/log_load.dart';
 import 'src/log_writer.dart';
 
-export 'src/log_writer.dart';
-export 'src/log_levels.dart';
 export 'src/log_colorizer.dart';
+export 'src/log_levels.dart';
 export 'src/log_load.dart';
+export 'src/log_writer.dart';
 
 typedef bool LogConditionChecker({int level, Object errorObj});
 typedef void LogPrinter(

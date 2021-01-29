@@ -24,3 +24,7 @@ class TranslationLoadFailedException extends GeneralException {
           message: "translation could not be loaded",
         );
 }
+
+class EnvironmentException extends GeneralException {
+  EnvironmentException(String message) : super(message: message);
+}

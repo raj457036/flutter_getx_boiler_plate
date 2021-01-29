@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_twitter_login/flutter_twitter_login.dart';
 import 'package:get/get.dart';
-import 'package:meta/meta.dart';
 
 import '../../../../../core/core.dart';
 import '../../firebase_auth_controller.dart';
@@ -12,13 +11,26 @@ class FirebaseTwitterAuthRepo extends FirebaseAuthExtendedRepo {
 
   FirebaseAuth get auth => _controller.auth;
 
-  final String consumerKey;
-  final String consumerSecret;
+  final key = 'twitter-consumer-key';
+  final secret = 'twitter-consumer-secret';
 
-  FirebaseTwitterAuthRepo({
-    @required this.consumerKey,
-    @required this.consumerSecret,
-  });
+  String consumerKey;
+  String consumerSecret;
+
+  bool get _isSetupComplete => consumerKey != null && consumerSecret != null;
+
+  init() {
+    consumerKey = Env.environment.config(key, silent: true);
+    consumerSecret = Env.environment.config(secret, silent: true);
+
+    if (consumerKey == null) {
+      LogService.warning("Add $key to your environment to use GitHub Auth");
+    }
+
+    if (consumerSecret == null) {
+      LogService.warning("Add $secret to your environment to use GitHub Auth");
+    }
+  }
 
   ///You will need to ensure that your application in the [Twitter Developer Portal](https://developer.twitter.com/)
   /// has a callback URL of *twittersdk://* for Android, and *twitterkit-CONSUMERKEY://* for iOS.
@@ -34,6 +46,13 @@ class FirebaseTwitterAuthRepo extends FirebaseAuthExtendedRepo {
   /// **Important**: You must enable the relevant accounts in the Auth section
   /// of the Firebase console before being able to use them.
   Future<Either<Failure, UserCredential>> signIn() async {
+    if (!_isSetupComplete)
+      return Left(
+        EnvironmentFailure(
+          "Twitter Auth Failed! Environment not fetch $key and $secret.",
+        ),
+      );
+
     // Create a TwitterLogin instance
     final TwitterLogin twitterLogin = new TwitterLogin(
       consumerKey: consumerKey,

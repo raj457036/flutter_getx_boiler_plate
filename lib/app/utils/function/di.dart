@@ -10,7 +10,7 @@ class DI {
   static DI get instance => _instance;
 
   void init() async {
-    await loadGlobalModules();
+    await Modular.loadModules();
     Get.put<GlobalController>(GlobalController());
   }
 }

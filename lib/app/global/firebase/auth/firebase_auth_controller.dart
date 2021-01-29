@@ -3,11 +3,7 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
-import '../firebase_controller.dart';
-
 class FirebaseAuthController extends GetxController {
-  final FirebaseController firebaseController = Get.find<FirebaseController>();
-
   // private props
   StreamSubscription _authSubscription;
   final RxBool isAuthenticatedListener = false.obs;

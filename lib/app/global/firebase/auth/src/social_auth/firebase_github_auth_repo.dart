@@ -1,23 +1,35 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:github_sign_in/github_sign_in.dart';
-import 'package:meta/meta.dart';
 
 import '../../../../../core/core.dart';
 import '../../firebase_auth_controller.dart';
 import '../misc_extensions/extended_auth_repo.dart';
 
-class FirebaseGitHubAuthRepo extends FirebaseAuthExtendedRepo {
+class FirebaseGitHubAuthRepository extends FirebaseAuthExtendedRepo {
   final FirebaseAuthController _controller = Get.find<FirebaseAuthController>();
 
   FirebaseAuth get auth => _controller.auth;
 
-  final String clientId, clientSecret;
+  final key = 'github-client-id';
+  final secret = 'github-client-secret';
 
-  FirebaseGitHubAuthRepo({
-    @required this.clientId,
-    @required this.clientSecret,
-  });
+  String clientId, clientSecret;
+
+  bool get _isSetupComplete => clientId != null && clientSecret != null;
+
+  init() {
+    clientId = Env.environment.config(key, silent: true);
+    clientSecret = Env.environment.config(secret, silent: true);
+
+    if (clientId == null) {
+      LogService.warning("Add $key to your environment to use GitHub Auth");
+    }
+
+    if (clientSecret == null) {
+      LogService.warning("Add $secret to your environment to use GitHub Auth");
+    }
+  }
 
   /// Asynchronously signs in to Firebase with the given Github login Access Token credentials
   /// and returns additional identity provider data.
@@ -29,6 +41,13 @@ class FirebaseGitHubAuthRepo extends FirebaseAuthExtendedRepo {
   /// **Important**: You must enable the relevant accounts in the Auth section
   /// of the Firebase console before being able to use them.
   Future<Either<Failure, UserCredential>> signIn() async {
+    if (!_isSetupComplete)
+      return Left(
+        EnvironmentFailure(
+          "Github Auth Failed! Environment not fetch $key and $secret.",
+        ),
+      );
+
     // Create a GitHubSignIn instance
     final GitHubSignIn gitHubSignIn = GitHubSignIn(
         clientId: clientId,

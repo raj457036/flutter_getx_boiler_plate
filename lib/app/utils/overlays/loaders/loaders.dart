@@ -38,13 +38,12 @@ _showCircularLoader(GlobalController _globalController, Widget bottom) {
       content: loader,
     );
   }
-
-  Get.dialog(
-    child.paddingAll(bottom == null ? Get.width / 3.5 : Get.width / 6),
-    barrierDismissible: false,
-    barrierColor: _globalController.loaderOpened ? Colors.transparent : null,
-    name: Env.values.loaderRouteName,
-  );
+  if (!_globalController.loaderOpened)
+    Get.dialog(
+      child.paddingAll(bottom == null ? Get.width / 3.5 : Get.width / 6),
+      barrierDismissible: false,
+      name: Env.values.loaderRouteName,
+    );
 }
 
 _showLinearLoader(GlobalController _globalController, Widget bottom) {
@@ -71,14 +70,13 @@ _showLinearLoader(GlobalController _globalController, Widget bottom) {
       )),
     ),
   );
-
-  Get.bottomSheet(
-    loader,
-    isDismissible: false,
-    enableDrag: false,
-    barrierColor: _globalController.loaderOpened ? Colors.transparent : null,
-    settings: RouteSettings(name: Env.values.loaderRouteName),
-  );
+  if (!_globalController.loaderOpened)
+    Get.bottomSheet(
+      loader,
+      isDismissible: false,
+      enableDrag: false,
+      settings: RouteSettings(name: Env.values.loaderRouteName),
+    );
 }
 
 Future<LoaderResult<V>> showLoader<V>({
@@ -107,7 +105,7 @@ Future<LoaderResult<V>> showLoader<V>({
       ]);
     } else
       result = await asyncTask();
-    Get.back();
+    Get.until((route) => !Get.isDialogOpen);
     final end = DateTime.now();
     return LoaderResult(result == null, tag, result, end.difference(start));
   }
@@ -115,7 +113,7 @@ Future<LoaderResult<V>> showLoader<V>({
   if (timeout != null) {
     _globalController.startLoading();
     await Future.delayed(timeout);
-    Get.back();
+    Get.until((route) => !Get.isDialogOpen);
     final end = DateTime.now();
     return LoaderResult(true, tag, null, end.difference(start));
   }

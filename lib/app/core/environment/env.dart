@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:boiler_plate/app/core/core.dart';
 import 'package:flutter/painting.dart';
 
 import '../../utils/function/asset_loader.dart';

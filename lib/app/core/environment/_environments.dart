@@ -43,18 +43,42 @@ class _Environment {
     }
   }
 
-  T config<T>(String key, {Environment overried, dynamic defaultValue}) {
+  T config<T>(String key,
+      {Environment overried, dynamic defaultValue, bool silent = false}) {
     if (!_initialized)
       LogService.warning(
           "Enviroment variables are not initilaized. call Env.instance.init() in main");
 
-    if (overried != null) return _flavours[overried][key];
+    if (overried != null) {
+      final val = _flavours[overried][key];
+      if (val == null)
+        LogService.warning("$key not found in $overried environment.");
+      return val;
+    }
 
-    if (isDevelopmentMode) return _flavours[Environment.development][key];
-    if (isProductionMode) return _flavours[Environment.production][key];
+    if (isDevelopmentMode) {
+      final val = _flavours[Environment.development][key];
+      if (val == null)
+        LogService.warning("$key not found in development environment.\n"
+            "Add $key to assets/secrets -> development");
+      else
+        return val;
+    }
+    if (isProductionMode) {
+      final val = _flavours[Environment.production][key];
+      if (val == null)
+        LogService.warning(
+          "$key not found in production environment.\n"
+          " Add $key to assets/secrets -> production",
+        );
+      else
+        return val;
+    }
 
     if (defaultValue != null) return defaultValue;
 
-    throw Exception("Environment Exception: $key not found");
+    if (!silent)
+      throw EnvironmentException("$key not found in your environment.");
+    return null;
   }
 }

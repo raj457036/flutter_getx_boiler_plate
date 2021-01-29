@@ -6,7 +6,7 @@ import '../../../../../core/core.dart';
 import '../../firebase_auth_controller.dart';
 import '../misc_extensions/extended_auth_repo.dart';
 
-class FirebaseFacebookAuthRepo extends FirebaseAuthExtendedRepo {
+class FirebaseFacebookAuthRepository extends FirebaseAuthExtendedRepo {
   final FirebaseAuthController _controller = Get.find<FirebaseAuthController>();
 
   FirebaseAuth get auth => _controller.auth;

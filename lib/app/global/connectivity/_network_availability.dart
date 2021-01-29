@@ -28,10 +28,6 @@ class InternetConnectionChecker implements NetworkAvailablity {
   static InternetConnectionChecker _instance = InternetConnectionChecker._();
   static InternetConnectionChecker get instance => _instance;
 
-  /// gives new instance of [InternetConnectionChecker] class
-  factory InternetConnectionChecker.newInstance() =>
-      InternetConnectionChecker._();
-
   InternetConnectionCondition _precheck, _postcheck;
   List<AddressOption> _options = [
     AddressOption(address: InternetAddress("1.1.1.1"))
