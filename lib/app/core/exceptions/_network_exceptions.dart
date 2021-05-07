@@ -2,7 +2,7 @@ part of 'exceptions.dart';
 
 class NetworkException extends BaseException {
   const NetworkException({
-    String message,
+    String? message,
     actualError,
   }) : super(
           message: message ?? "Network exception encounterd",

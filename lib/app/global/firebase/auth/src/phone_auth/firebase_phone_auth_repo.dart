@@ -18,13 +18,13 @@ class FirebasePhoneAuthRepository extends FirebaseAuthExtendedRepo {
       FirebasePhoneAuthRepository._();
   static FirebasePhoneAuthRepository get instance => _instance;
 
-  String _verificationId;
-  int _resendToken;
+  late String _verificationId;
+  late int? _resendToken;
 
   Future<Either<Failure, void>> sendOTP(
     String phoneNumber, {
-    Function(Failure) verificationFailed,
-    Function(PhoneAuthCredential) verificationCompleted,
+    Function(Failure)? verificationFailed,
+    Function(PhoneAuthCredential)? verificationCompleted,
     bool resend = false,
   }) async {
     if (!resend) _resetState();
@@ -52,7 +52,7 @@ class FirebasePhoneAuthRepository extends FirebaseAuthExtendedRepo {
 
           if (verificationFailed != null) verificationFailed(failure);
         },
-        codeSent: (String verificationId, int resendToken) {
+        codeSent: (String verificationId, int? resendToken) {
           _verificationId = verificationId;
           _resendToken = resendToken;
         },
@@ -83,7 +83,7 @@ class FirebasePhoneAuthRepository extends FirebaseAuthExtendedRepo {
   }
 
   _resetState() {
-    _verificationId = null;
+    _verificationId = "";
     _resendToken = null;
   }
 }

@@ -62,7 +62,7 @@ class Modular {
     Get.put(MessagingService());
 
     // ** DYNAMIC LINK **
-
-    Get.put(DynamicLinkController());
+    // TODO 7: change defaultUriPrefix
+    Get.put(DynamicLinkController(defaultUriPrefix: "sample.page.link"));
   }
 }

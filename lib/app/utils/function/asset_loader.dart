@@ -1,5 +1,4 @@
 import 'package:flutter/services.dart' show rootBundle;
-import 'package:meta/meta.dart';
 
 import '../../core/core.dart';
 import '../../core/logger/logger.dart';
@@ -10,7 +9,7 @@ class AssetLoader {
   static AssetLoader _instance = AssetLoader._();
   static AssetLoader get instance => _instance;
 
-  Future<String> loadString(String fileName,
+  Future<String?> loadString(String fileName,
       {bool fromCache = true, bool elseNull = false}) async {
     try {
       final _source = await rootBundle.loadString(
@@ -28,11 +27,11 @@ class AssetLoader {
     }
   }
 
-  Future<T> loadStructuredData<T>(
+  Future<T?> loadStructuredData<T>(
     String fileName, {
     bool fromCache = true,
     bool elseNull = false,
-    @required Future<T> Function(String) parser,
+    required Future<T> Function(String) parser,
   }) async {
     try {
       final T _source = await rootBundle.loadStructuredData<T>(

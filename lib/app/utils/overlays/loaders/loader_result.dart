@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 
 class LoaderResult<V> extends Equatable {
   final bool timeout;
-  final String tag;
+  final String? tag;
   final V result;
   final Duration timetaken;
 
@@ -12,5 +12,5 @@ class LoaderResult<V> extends Equatable {
   bool get stringify => true;
 
   @override
-  List<Object> get props => [timeout, tag, result, timetaken];
+  List<Object?> get props => [timeout, tag, result, timetaken];
 }

@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:connectivity/connectivity.dart';
 import 'package:get/get.dart';
-import 'package:meta/meta.dart';
 
 import '../../core/core.dart';
 import '../../core/logger/logger.dart';

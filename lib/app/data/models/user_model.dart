@@ -5,14 +5,14 @@ import 'package:equatable/equatable.dart';
 import '../../global/storage/storage.dart';
 
 class UserModel extends DbBinder<UserModel> with EquatableMixin {
-  final String name;
-  final String uuid;
-  final String phone;
-  final DateTime dob;
-  final bool isAdmin;
+  final String? name;
+  final String? uuid;
+  final String? phone;
+  final DateTime? dob;
+  final bool? isAdmin;
 
   UserModel({
-    int id,
+    int id = -1,
     this.name,
     this.uuid,
     this.phone,
@@ -21,11 +21,11 @@ class UserModel extends DbBinder<UserModel> with EquatableMixin {
   }) : super(id: id);
 
   UserModel copyWith({
-    String name,
-    String uuid,
-    String phone,
-    DateTime dob,
-    bool isAdmin,
+    String? name,
+    String? uuid,
+    String? phone,
+    DateTime? dob,
+    bool? isAdmin,
   }) {
     return UserModel(
       name: name ?? this.name,
@@ -47,8 +47,6 @@ class UserModel extends DbBinder<UserModel> with EquatableMixin {
   }
 
   factory UserModel.fromMap(Map<String, dynamic> map) {
-    if (map == null) return null;
-
     return UserModel(
       id: map['__id'],
       name: map['name'],
@@ -70,10 +68,11 @@ class UserModel extends DbBinder<UserModel> with EquatableMixin {
   }
 
   @override
-  UserModel fromMap(Map<String, dynamic> map) {
+  UserModel fromMap(Map<String, dynamic>? map) {
+    if (map == null) return UserModel();
     return UserModel.fromMap(map);
   }
 
   @override
-  List<Object> get props => [pk, uuid, name, phone, dob, isAdmin];
+  List<Object?> get props => [pk, uuid, name, phone, dob, isAdmin];
 }

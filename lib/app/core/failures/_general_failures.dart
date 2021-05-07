@@ -9,8 +9,8 @@ const int ENVIRONMENT_FAILURE_CODE = 300001;
 
 class BaseGeneralFailure extends Failure {
   BaseGeneralFailure({
-    String message,
-    Exception actualException,
+    String? message,
+    Exception? actualException,
   }) : super(
           code: BASE_GENERAL_FAILURE_CODE,
           message: message ?? LocaleKeys.failures_base_general,

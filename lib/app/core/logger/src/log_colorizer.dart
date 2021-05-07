@@ -3,8 +3,8 @@ class LogTextColorizer {
 
   static const ansiDefault = '${ansiEsc}0m';
 
-  final int fg;
-  final int bg;
+  final int? fg;
+  final int? bg;
   final bool color;
 
   LogTextColorizer.none()

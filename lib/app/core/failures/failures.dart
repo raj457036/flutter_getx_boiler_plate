@@ -6,9 +6,9 @@ part '_network_failures.dart';
 
 // ERROR CODE STARTING WITH 999xxx are for external modules
 class Failure implements Type {
-  final int code;
-  final String message;
-  final Object actualException;
+  final int? code;
+  final String? message;
+  final Object? actualException;
 
   const Failure({this.code, this.message, this.actualException});
 }

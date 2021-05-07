@@ -12,10 +12,12 @@ class FirebaseUserProfileRepository extends BaseRepository {
   final FirebaseUserProfileProvider _profileProvider =
       Get.find<FirebaseUserProfileProvider>();
 
-  Future<Either<Failure, UserProfile>> getUser() async {
+  Future<Either<Failure, UserProfile?>> getUser() async {
     try {
-      final _user =
-          await _profileProvider.getUser(_authController.firebaseUser.uid);
+      final uid = _authController.firebaseUser?.uid;
+
+      if (uid == null) return Right(null);
+      final _user = await _profileProvider.getUser(uid);
       return Right(_user);
     } catch (e) {
       return handleException(e);
@@ -34,8 +36,10 @@ class FirebaseUserProfileRepository extends BaseRepository {
 
   Future<Either<Failure, bool>> deleteProfile() async {
     try {
-      final _user = await _profileProvider
-          .deleteProfile(_authController.firebaseUser.uid);
+      final uid = _authController.firebaseUser?.uid;
+
+      if (uid == null) return Right(false);
+      final _user = await _profileProvider.deleteProfile(uid);
       return Right(_user);
     } catch (e) {
       return handleException(e);

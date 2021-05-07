@@ -8,7 +8,7 @@ import 'failures/failures.dart';
 typedef Failure FailureCallback(BaseException exception);
 
 // ignore: non_constant_identifier_names
-final EXCEPTION_FAILURE_MAP = <BaseException, FailureCallback>{
+final EXCEPTION_FAILURE_MAP = <Type, FailureCallback>{
   EnvironmentException: (e) => EnvironmentFailure(e.toString()),
   DatabaseException: (e) => BaseDatabaseFailure(actualException: e),
   NetworkException: (e) => BaseNetworkFailure(actualException: e),

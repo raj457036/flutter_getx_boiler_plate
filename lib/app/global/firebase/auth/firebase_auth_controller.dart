@@ -5,14 +5,14 @@ import 'package:get/get.dart';
 
 class FirebaseAuthController extends GetxController {
   // private props
-  StreamSubscription _authSubscription;
+  late StreamSubscription _authSubscription;
   final RxBool isAuthenticatedListener = false.obs;
-  final Rx<User> firebaseUserListener = Rx<User>();
+  final Rx<User?> firebaseUserListener = Rx<User?>(null);
 
   // getters
   FirebaseAuth get auth => FirebaseAuth.instance;
   bool get isAuthenticated => isAuthenticatedListener.value;
-  User get firebaseUser => firebaseUserListener.value;
+  User? get firebaseUser => firebaseUserListener.value;
   bool get isUserAnonymous => firebaseUser?.isAnonymous ?? true;
 
   @override
@@ -35,7 +35,7 @@ class FirebaseAuthController extends GetxController {
 
   // privates
 
-  _onAuthStateChange(User user) {
+  _onAuthStateChange(User? user) {
     if (user == null) {
       isAuthenticatedListener.value = false;
       firebaseUserListener.value = null;

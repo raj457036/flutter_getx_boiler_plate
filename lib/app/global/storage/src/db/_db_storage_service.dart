@@ -5,11 +5,11 @@ class DbStorageService extends GetxService {
   DbStorageService._();
   static DbStorageService get instance => Get.find<DbStorageService>();
 
-  String _path;
+  late String _path;
   String get path => _path;
 
   _init({
-    String path,
+    String? path,
   }) async {
     if (initialized) return;
     var databasesPath = await getDatabasesPath();
@@ -17,7 +17,7 @@ class DbStorageService extends GetxService {
   }
 
   static init({
-    String path,
+    String? path,
   }) {
     final _i = DbStorageService._();
     _i._init(path: path);

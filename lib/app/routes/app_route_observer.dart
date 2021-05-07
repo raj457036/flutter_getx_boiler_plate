@@ -5,7 +5,7 @@ import '../controllers/global_controller.dart';
 import '../core/core.dart';
 
 class AppRouteObserver extends GetObserver {
-  GlobalController _controller;
+  late GlobalController? _controller;
 
   AppRouteObserver._();
 
@@ -13,16 +13,16 @@ class AppRouteObserver extends GetObserver {
   static AppRouteObserver get instance => _instance;
 
   GlobalController get controller {
-    if (_controller != null) return _controller;
+    if (_controller != null) return _controller!;
     _controller = Get.find<GlobalController>();
-    return _controller;
+    return _controller!;
   }
 
   @override
-  void didPop(Route route, Route previousRoute) {
+  void didPop(Route route, Route? previousRoute) {
     super.didPop(route, previousRoute);
 
-    if (previousRoute.settings.name == Env.values.loaderRouteName) {
+    if (previousRoute?.settings.name == Env.values.loaderRouteName) {
       controller.stopLoading();
     }
 
@@ -30,7 +30,7 @@ class AppRouteObserver extends GetObserver {
   }
 
   @override
-  void didPush(Route route, Route previousRoute) {
+  void didPush(Route route, Route? previousRoute) {
     super.didPush(route, previousRoute);
     if (route.settings.name == Env.values.loaderRouteName) {
       controller.startLoading();

@@ -8,7 +8,7 @@ import 'firebase_failures.dart';
 
 abstract class FirebaseAuthExtendedRepo extends BaseRepository {
   @override
-  Either<Failure, dynamic> handleException(e) {
+  Either<Failure, T> handleException<T>(e) {
     if (e is FirebaseException) {
       Failure failure;
       switch (e.code) {

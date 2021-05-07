@@ -1,7 +1,6 @@
 import 'dart:typed_data';
 
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '_db_storage_service.dart';
@@ -125,6 +124,8 @@ abstract class DbTableBinder {
       } else if (entry.value is DateTime) {
         _type = "INTEGER";
         _isDate = true;
+      } else {
+        _type = "ANY";
       }
 
       final column = DbColumnBinder(
@@ -179,10 +180,10 @@ class DbColumnBinder extends Equatable {
   final dynamic rawValue;
 
   const DbColumnBinder({
-    @required this.name,
-    @required this.isPrimary,
-    @required this.type,
-    @required this.notNullable,
+    required this.name,
+    required this.isPrimary,
+    required this.type,
+    required this.notNullable,
     this.autoIncrement = false,
     this.isBool = false,
     this.isDate = false,
@@ -209,14 +210,14 @@ class DbColumnBinder extends Equatable {
 }
 
 abstract class DbBinder<T> extends DbTableBinder {
-  static Database _db;
+  static late Database _db;
 
-  DbBinder({@required int id}) : super(id);
+  DbBinder({required int id}) : super(id);
 
-  T fromMap(Map<String, dynamic> map);
+  T fromMap(Map<String, dynamic>? map);
 
   Future<DbBinder<T>> open(
-      {String path, int version, bool readOnly = false}) async {
+      {String? path, int? version, bool readOnly = false}) async {
     final database = await openDatabase(
       path ?? DbStorageService.instance.path,
       version: version ?? 1,
@@ -238,17 +239,17 @@ abstract class DbBinder<T> extends DbTableBinder {
     return __id;
   }
 
-  Future<List<T>> fetch({
-    Map<String, dynamic> query,
-    bool all,
-    bool distinct,
-    int limit,
-    int offset,
-    String orderBy,
+  Future<List<T>?> fetch({
+    Map<String, Object?>? query,
+    bool? all,
+    bool? distinct,
+    int? limit,
+    int? offset,
+    String? orderBy,
   }) async {
-    final _where = query?.keys?.map((key) => "$key = ?")?.toList()?.join(",");
+    final _where = query?.keys.map((key) => "$key = ?").toList().join(",");
 
-    final _whereArgs = query?.values;
+    final _whereArgs = query?.values.toList();
 
     List<Map> maps = await _db.query(
       getTableName(),
@@ -260,9 +261,7 @@ abstract class DbBinder<T> extends DbTableBinder {
       orderBy: orderBy,
     );
 
-    print(maps);
-
-    return maps?.map((row) => fromMap(row))?.toList();
+    return maps.map((row) => fromMap(row as Map<String, dynamic>)).toList();
   }
 
   Future<int> delete() async {

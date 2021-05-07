@@ -14,8 +14,8 @@ class FirebaseTwitterAuthRepo extends FirebaseAuthExtendedRepo {
   final key = 'twitter-consumer-key';
   final secret = 'twitter-consumer-secret';
 
-  String consumerKey;
-  String consumerSecret;
+  late String? consumerKey;
+  late String? consumerSecret;
 
   bool get _isSetupComplete => consumerKey != null && consumerSecret != null;
 

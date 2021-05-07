@@ -12,7 +12,7 @@ class CacheServiceModule {
 
   bool _initialized = false;
 
-  GetStorage box({String name, Map<String, dynamic> initialData}) {
+  GetStorage? box({String? name, Map<String, dynamic> initialData = const {}}) {
     if (!_initialized)
       throw DatabaseException(
         message: "CacheServiceModule is not initialized yet."
@@ -60,7 +60,7 @@ class CacheServiceModule {
 
   Future<void> erase(String name) async {
     if (!_boxes.contains(name)) return;
-    await box(name: name).erase();
+    await box(name: name)?.erase();
   }
 
   Future<void> eraseAll() async {

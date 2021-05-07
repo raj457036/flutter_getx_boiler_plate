@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
-import 'package:meta/meta.dart';
 
 import '../../../../../../generated/locales.g.dart';
 import '../../../../../core/core.dart';
@@ -50,8 +49,8 @@ class FireabaseEmailAuthRepository extends BaseRepository {
   /// **Important**: You must enable Email & Password accounts in the Auth
   /// section of the Firebase console before being able to use them.
   Future<Either<Failure, UserCredential>> signInWithEmailAndPassword({
-    @required String email,
-    @required String password,
+    required String email,
+    required String password,
   }) async {
     try {
       final result = await auth.signInWithEmailAndPassword(
@@ -98,8 +97,8 @@ class FireabaseEmailAuthRepository extends BaseRepository {
 
   /// Tries to create a new user account with the given email address and password.
   Future<Either<Failure, UserCredential>> signUpWithEmailAndPassword({
-    @required String email,
-    @required String password,
+    required String email,
+    required String password,
   }) async {
     try {
       final result = await auth.createUserWithEmailAndPassword(

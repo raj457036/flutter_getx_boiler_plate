@@ -34,8 +34,8 @@ class GlobalController extends GetxController {
     _loaderOpened.value = false;
   }
 
-  handleFailure(Failure failure) {
-    LogService.error(failure.message);
+  handleFailure(Failure? failure) {
+    LogService.error(failure?.message ?? "");
   }
 
   // Route management

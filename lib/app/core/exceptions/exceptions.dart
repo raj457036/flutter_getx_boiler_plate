@@ -6,7 +6,7 @@ class BaseException implements Exception, Type {
   final String message;
   final actualError;
 
-  const BaseException({this.message, this.actualError});
+  const BaseException({required this.message, this.actualError});
 
   @override
   String toString() => "$runtimeType($message)";

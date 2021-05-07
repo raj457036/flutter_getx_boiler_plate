@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
@@ -9,7 +10,7 @@ import '../../../core/core.dart';
 import '../../misc/types.dart';
 import 'loader_result.dart';
 
-_showCircularLoader(GlobalController _globalController, Widget bottom) {
+_showCircularLoader(GlobalController _globalController, [Widget? bottom]) {
   Widget child;
   final loader = AspectRatio(
     aspectRatio: 1,
@@ -46,7 +47,7 @@ _showCircularLoader(GlobalController _globalController, Widget bottom) {
     );
 }
 
-_showLinearLoader(GlobalController _globalController, Widget bottom) {
+_showLinearLoader(GlobalController _globalController, [Widget? bottom]) {
   final loader = IntrinsicHeight(
     child: Container(
       padding: EdgeInsets.all(10.0),
@@ -79,12 +80,12 @@ _showLinearLoader(GlobalController _globalController, Widget bottom) {
     );
 }
 
-Future<LoaderResult<V>> showLoader<V>({
-  AsyncTask<V> asyncTask,
-  Duration timeout,
-  Widget bottom,
-  bool linear,
-  String tag,
+Future<LoaderResult<V?>> showLoader<V>({
+  AsyncTask<V>? asyncTask,
+  Duration? timeout,
+  Widget? bottom,
+  bool? linear,
+  String? tag,
 }) async {
   final GlobalController _globalController = Get.find<GlobalController>();
 
@@ -97,23 +98,25 @@ Future<LoaderResult<V>> showLoader<V>({
 
   if (asyncTask != null) {
     _globalController.startLoading();
-    V result;
+    late V result;
+    bool _timeouted = false;
     if (timeout != null) {
-      result = await Future.any([
-        Future.delayed(timeout),
-        asyncTask(),
-      ]);
+      try {
+        result = await asyncTask().timeout(timeout);
+      } on TimeoutException {
+        _timeouted = true;
+      }
     } else
       result = await asyncTask();
-    Get.until((route) => !Get.isDialogOpen);
+    Get.until((route) => !(Get.isDialogOpen ?? false));
     final end = DateTime.now();
-    return LoaderResult(result == null, tag, result, end.difference(start));
+    return LoaderResult(_timeouted, tag, result, end.difference(start));
   }
 
   if (timeout != null) {
     _globalController.startLoading();
     await Future.delayed(timeout);
-    Get.until((route) => !Get.isDialogOpen);
+    Get.until((route) => !(Get.isDialogOpen ?? false));
     final end = DateTime.now();
     return LoaderResult(true, tag, null, end.difference(start));
   }

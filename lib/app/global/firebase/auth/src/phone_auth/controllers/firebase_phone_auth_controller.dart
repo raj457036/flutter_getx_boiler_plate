@@ -12,7 +12,7 @@ class FirebasePhoneAuthController extends GetxController {
   final FirebasePhoneAuthRepository _repository =
       FirebasePhoneAuthRepository.instance;
 
-  Timer _timer;
+  late Timer? _timer;
 
   final sendingOTP = false.obs;
   final verifyingOTP = false.obs;

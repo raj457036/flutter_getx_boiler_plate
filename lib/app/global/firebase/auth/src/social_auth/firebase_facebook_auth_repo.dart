@@ -1,3 +1,4 @@
+import '../../firebase_auth_module.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
@@ -22,16 +23,20 @@ class FirebaseFacebookAuthRepository extends FirebaseAuthExtendedRepo {
   /// of the Firebase console before being able to use them.
   Future<Either<Failure, UserCredential>> signIn() async {
     // Trigger the sign-in flow
-    final AccessToken result = await FacebookAuth.instance.login();
+    final LoginResult result = await FacebookAuth.instance.login();
 
-    // Create a credential from the access token
-    final FacebookAuthCredential credential =
-        FacebookAuthProvider.credential(result.token);
-
-    // Once signed in, return the UserCredential
     try {
-      final result = await auth.signInWithCredential(credential);
-      return Right(result);
+      if (result.accessToken == null) {
+        return Left(FirebaseFailure(result.status, result.message.toString()));
+      }
+      // Create a credential from the access token
+      final credential =
+          FacebookAuthProvider.credential(result.accessToken!.token);
+
+      // Once signed in, return the UserCredential
+
+      final _result = await auth.signInWithCredential(credential);
+      return Right(_result);
     } catch (e) {
       return handleException(e);
     }

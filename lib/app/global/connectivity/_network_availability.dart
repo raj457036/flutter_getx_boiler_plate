@@ -4,8 +4,8 @@ abstract class NetworkAvailablity {
   Future<bool> get isAvailable;
 
   Future<T> executeWhenAvailable<T>({
-    @required Future<T> Function() callback,
-    @required Future<T> Function() orElse,
+    required Future<T> Function() callback,
+    required Future<T> Function() orElse,
   });
 }
 
@@ -14,10 +14,10 @@ typedef Future<bool> InternetConnectionCondition();
 class AddressOption {
   final InternetAddress address;
   final int port;
-  final int timeoutSeconds;
+  final int? timeoutSeconds;
 
   AddressOption({
-    @required this.address,
+    required this.address,
     this.port = 53,
     this.timeoutSeconds = 3,
   });
@@ -28,18 +28,18 @@ class InternetConnectionChecker implements NetworkAvailablity {
   static InternetConnectionChecker _instance = InternetConnectionChecker._();
   static InternetConnectionChecker get instance => _instance;
 
-  InternetConnectionCondition _precheck, _postcheck;
+  late InternetConnectionCondition? _precheck, _postcheck;
   List<AddressOption> _options = [
     AddressOption(address: InternetAddress("1.1.1.1"))
   ];
 
-  static void setAddressOptions(List<AddressOption> options) {
-    instance._options = [instance._options.first, ...(options ?? [])];
+  static void setAddressOptions(List<AddressOption>? options) {
+    instance._options = [instance._options.first, ...(options ?? const [])];
   }
 
   static void setPreAndPostChecks({
-    InternetConnectionCondition precheck,
-    InternetConnectionCondition postcheck,
+    InternetConnectionCondition? precheck,
+    InternetConnectionCondition? postcheck,
   }) {
     instance._precheck = precheck;
     instance._postcheck = postcheck;
@@ -47,8 +47,8 @@ class InternetConnectionChecker implements NetworkAvailablity {
 
   @override
   Future<T> executeWhenAvailable<T>({
-    @required Future<T> Function() callback,
-    @required Future<T> Function() orElse,
+    required Future<T> Function() callback,
+    required Future<T> Function() orElse,
   }) async {
     if (await isAvailable)
       return await callback();
@@ -65,16 +65,14 @@ class InternetConnectionChecker implements NetworkAvailablity {
         ? option.timeoutSeconds
         : 0;
 
-    Socket socket;
+    late Socket? socket;
     bool isConnected = false;
     try {
       // ignore: close_sinks
       socket = await Socket.connect(
         option.address,
         option.port,
-        timeout: Duration(
-          seconds: timeout,
-        ),
+        timeout: timeout?.seconds,
       );
       isConnected = true;
     } on SocketException catch (_) {
@@ -95,7 +93,7 @@ class InternetConnectionChecker implements NetworkAvailablity {
   }
 
   Future<bool> _checkForActiveConnection() async {
-    if (_precheck != null && !await _precheck()) {
+    if (_precheck != null && !await _precheck!()) {
       LogService.info(
         "Internet connection test: Pre-check condition failed",
       );
@@ -112,7 +110,7 @@ class InternetConnectionChecker implements NetworkAvailablity {
 
     isConnected = (await Future.wait(futureChecks)).contains(true);
 
-    if (_postcheck != null && !await _postcheck()) {
+    if (_postcheck != null && !await _postcheck!()) {
       LogService.info(
         "Internet connection test: Post-check condition failed",
       );

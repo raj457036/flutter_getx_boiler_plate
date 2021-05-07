@@ -1,4 +1,4 @@
-import 'package:boiler_plate/app/global/firebase/analytics/analytics.dart';
+import 'app/global/firebase/analytics/analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

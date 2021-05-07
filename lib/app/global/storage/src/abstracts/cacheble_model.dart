@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:get_storage/get_storage.dart';
-import 'package:meta/meta.dart';
 
 import '../../../../core/core.dart';
 import '../cache_storage_service.dart';
@@ -21,14 +20,14 @@ abstract class CachebleModel<T extends CachebleModel<T>>
 
     final load = toMap();
 
-    await box.write(key, load);
+    await box?.write(key, load);
   }
 
-  GetStorage _getBox() {
+  GetStorage? _getBox() {
     final CacheServiceModule _cacheService = CacheServiceModule.instance;
     String boxName = runtimeType.toString();
     try {
-      final GetStorage box = _cacheService.box(name: boxName);
+      final GetStorage? box = _cacheService.box(name: boxName);
       return box;
     } catch (e) {
       LogService.info("$boxName Cache not found!");
@@ -36,22 +35,23 @@ abstract class CachebleModel<T extends CachebleModel<T>>
     return null;
   }
 
-  T fetch<T extends CachebleModel<T>>({
-    @required ModelMapFactory<T> modelFactory,
+  T? fetch<T extends CachebleModel<T>>({
+    required ModelMapFactory<T> modelFactory,
   }) {
-    final GetStorage box = _getBox();
+    final GetStorage? box = _getBox();
     if (box == null) return null;
 
     final load = box.read<Map<String, dynamic>>(key);
 
+    if (load == null) return null;
     return modelFactory(load);
   }
 
-  List<T> fetchAll<T extends CachebleModel<T>>({
-    @required ModelMapFactory<T> modelFactory,
+  List<T?> fetchAll<T extends CachebleModel<T>>({
+    required ModelMapFactory<T> modelFactory,
   }) {
-    final GetStorage box = _getBox();
-    if (box == null) return null;
+    final GetStorage? box = _getBox();
+    if (box == null) return const [];
 
     final values = List<Map<String, dynamic>>.from(box.getValues())
         .map((load) => modelFactory(load))
@@ -60,27 +60,27 @@ abstract class CachebleModel<T extends CachebleModel<T>>
   }
 
   Future<void> erase() async {
-    final GetStorage box = _getBox();
+    final GetStorage? box = _getBox();
     if (box == null) return null;
     await box.remove(key);
   }
 
   Future<void> eraseAll() async {
-    final GetStorage box = _getBox();
+    final GetStorage? box = _getBox();
     if (box == null) return null;
     await box.erase();
   }
 
   void listenThis(
     Function(T) listener, {
-    @required ModelMapFactory<T> modelFactory,
+    required ModelMapFactory<T> modelFactory,
   }) async {
-    GetStorage box = _getBox();
+    GetStorage? box = _getBox();
     box?.listenKey(key, (_) => listener(modelFactory(_)));
   }
 
   void listenAll(void Function() listener) async {
-    GetStorage box = _getBox();
+    GetStorage? box = _getBox();
     box?.listen(listener);
   }
 }

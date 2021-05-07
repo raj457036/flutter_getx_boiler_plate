@@ -10,8 +10,8 @@ const int CONNECTION_REQUEST_TIMEOUT_FAILURE_CODE = 400002;
 
 class BaseNetworkFailure extends Failure {
   BaseNetworkFailure({
-    String message,
-    Exception actualException,
+    String? message,
+    Exception? actualException,
   }) : super(
           code: BASE_NETWORK_FAILURE_CODE,
           message: message ?? LocaleKeys.failures_base_network,

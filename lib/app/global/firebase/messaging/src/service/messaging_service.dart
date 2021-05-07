@@ -11,9 +11,9 @@ Future<void> _backgroundMessageHandler(RemoteMessage message) async {
   final payload = MessagePayload.fromRemoteMessage(message);
   final executor = payload.executorPayload;
 
-  if (executor.isExpired) return;
-  if (executor.onlyBackground) return;
-  if (executor.onlyOnTap) return;
+  if (executor?.isExpired ?? false) return;
+  if (executor?.onlyBackground ?? false) return;
+  if (executor?.onlyOnTap ?? false) return;
 
   await _taskExecutor(payload);
 }
@@ -21,7 +21,7 @@ Future<void> _backgroundMessageHandler(RemoteMessage message) async {
 Future<void> _taskExecutor(MessagePayload payload) async {
   final executorPayload = payload.executorPayload;
 
-  final callback = executorPayload.callback;
+  final callback = executorPayload?.callback;
 
   final executor = TASK_MAPPER[callback];
 
@@ -38,10 +38,11 @@ class MessagingService extends GetxService {
   final FirebaseMessaging _messaging = FirebaseMessaging.instance;
 
   // RX
-  final Rx<NotificationSettings> activeSettings = Rx<NotificationSettings>();
+  final Rx<NotificationSettings?> activeSettings =
+      Rx<NotificationSettings?>(null);
 
   // Getters
-  NotificationSettings get settings => activeSettings.value;
+  NotificationSettings? get settings => activeSettings.value;
 
   @override
   void onInit() {
@@ -70,7 +71,7 @@ class MessagingService extends GetxService {
     FirebaseMessaging.onMessageOpenedApp.listen(_onResume);
   }
 
-  Future<AuthorizationStatus> requestNotificationPermissions() async {
+  Future<AuthorizationStatus?> requestNotificationPermissions() async {
     // TODO 5 : CONFIGURE MESSAGING PERMISSIONS
     activeSettings.value = await _messaging.requestPermission(
       alert: true,
@@ -82,16 +83,16 @@ class MessagingService extends GetxService {
       sound: true,
     );
 
-    return activeSettings.value.authorizationStatus;
+    return activeSettings.value?.authorizationStatus;
   }
 
   _onMessage(RemoteMessage message) {
     final payload = MessagePayload.fromRemoteMessage(message);
     final executor = payload.executorPayload;
 
-    if (executor.isExpired) return;
-    if (executor.onlyBackground) return;
-    if (executor.onlyOnTap) return;
+    if (executor?.isExpired ?? false) return;
+    if (executor?.onlyBackground ?? false) return;
+    if (executor?.onlyOnTap ?? false) return;
 
     _taskExecutor(payload);
   }
@@ -99,23 +100,23 @@ class MessagingService extends GetxService {
   _onResume(RemoteMessage message) {
     final payload = MessagePayload.fromRemoteMessage(message);
     final executor = payload.executorPayload;
-    if (executor.isExpired) return;
-    if (executor.onlyBackground) return;
-    if (!executor.onlyOnTap) return;
+    if (executor?.isExpired ?? false) return;
+    if (executor?.onlyBackground ?? false) return;
+    if (!(executor?.onlyOnTap ?? false)) return;
 
     _taskExecutor(payload);
   }
 
   _onLaunch() async {
-    final RemoteMessage _message = await _messaging.getInitialMessage();
+    final RemoteMessage? _message = await _messaging.getInitialMessage();
     if (_message == null) return;
 
     final payload = MessagePayload.fromRemoteMessage(_message);
     final executor = payload.executorPayload;
 
-    if (executor.isExpired) return;
-    if (executor.onlyBackground) return;
-    if (executor.onlyOnTap) return;
+    if (executor?.isExpired ?? false) return;
+    if (executor?.onlyBackground ?? false) return;
+    if (executor?.onlyOnTap ?? false) return;
 
     await _taskExecutor(payload);
   }

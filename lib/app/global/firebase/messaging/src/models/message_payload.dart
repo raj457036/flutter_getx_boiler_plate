@@ -2,26 +2,25 @@ import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:meta/meta.dart';
 
 import 'executor_message.dart';
 import 'notification_message_payload.dart';
 
 class MessagePayload extends Equatable {
-  final NotificationMessagePayload notification;
-  final ExecutorMessagePayload executorPayload;
-  final Map<String, dynamic> dataPayload;
+  final NotificationMessagePayload? notification;
+  final ExecutorMessagePayload? executorPayload;
+  final Map<String, dynamic>? dataPayload;
 
   MessagePayload({
-    @required this.notification,
-    @required this.executorPayload,
-    @required this.dataPayload,
+    required this.notification,
+    required this.executorPayload,
+    required this.dataPayload,
   });
 
   MessagePayload copyWith({
-    NotificationMessagePayload notification,
-    ExecutorMessagePayload executorPayload,
-    Map<String, dynamic> dataPayload,
+    NotificationMessagePayload? notification,
+    ExecutorMessagePayload? executorPayload,
+    Map<String, dynamic>? dataPayload,
   }) {
     return MessagePayload(
       notification: notification ?? this.notification,
@@ -52,12 +51,13 @@ class MessagePayload extends Equatable {
   }
 
   factory MessagePayload.fromMap(Map<String, dynamic> map) {
-    if (map == null) return null;
-
     final parsedMsg = MessagePayload(
-      notification:
-          NotificationMessagePayload.fromMap(map['notification']) ?? null,
-      executorPayload: ExecutorMessagePayload.fromMap(map['data']) ?? null,
+      notification: map['notification'] != null
+          ? NotificationMessagePayload.fromMap(map['notification'])
+          : null,
+      executorPayload: map['data'] != null
+          ? ExecutorMessagePayload.fromMap(map['data'])
+          : null,
       dataPayload: Map<String, dynamic>.from(map['data'] ?? const {}),
     );
 
@@ -69,17 +69,12 @@ class MessagePayload extends Equatable {
     final parsedMsg = MessagePayload(
       notification: message.notification != null
           ? NotificationMessagePayload(
-              body: message.notification.body,
-              title: message.notification.title,
+              body: message.notification?.body,
+              title: message.notification?.title,
             )
           : null,
-      executorPayload: ExecutorMessagePayload.fromMap(
-            message.data ?? const <String, dynamic>{},
-          ) ??
-          null,
-      dataPayload: Map<String, dynamic>.from(
-        message.data ?? const <String, dynamic>{},
-      ),
+      executorPayload: ExecutorMessagePayload.fromMap(message.data),
+      dataPayload: Map<String, dynamic>.from(message.data),
     );
 
     parsedMsg._clean();
@@ -87,10 +82,10 @@ class MessagePayload extends Equatable {
   }
 
   _clean() {
-    final _keys = executorPayload.toMap().keys;
+    final _keys = executorPayload?.toMap().keys ?? const [];
 
     for (var key in _keys) {
-      dataPayload.remove(key);
+      dataPayload?.remove(key);
     }
   }
 
@@ -103,5 +98,5 @@ class MessagePayload extends Equatable {
   bool get stringify => true;
 
   @override
-  List<Object> get props => [notification, executorPayload, dataPayload];
+  List<Object?> get props => [notification, executorPayload, dataPayload];
 }

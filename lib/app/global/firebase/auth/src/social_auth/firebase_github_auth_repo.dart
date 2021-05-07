@@ -14,7 +14,7 @@ class FirebaseGitHubAuthRepository extends FirebaseAuthExtendedRepo {
   final key = 'github-client-id';
   final secret = 'github-client-secret';
 
-  String clientId, clientSecret;
+  late String? clientId, clientSecret;
 
   bool get _isSetupComplete => clientId != null && clientSecret != null;
 

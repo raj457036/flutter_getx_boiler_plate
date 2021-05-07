@@ -2,7 +2,7 @@ part of 'exceptions.dart';
 
 class GeneralException extends BaseException {
   const GeneralException({
-    String message,
+    String? message,
     actualError,
   }) : super(
           message: message ?? "some exception encounterd",
@@ -11,7 +11,7 @@ class GeneralException extends BaseException {
 }
 
 class AssetLoadFailedException extends GeneralException {
-  AssetLoadFailedException(Exception actualError)
+  AssetLoadFailedException(Object? actualError)
       : super(
           actualError: actualError,
           message: "Asset could not be loaded: $actualError",

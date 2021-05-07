@@ -1,20 +1,19 @@
 import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
 
 class NotificationMessagePayload extends Equatable {
-  final String title;
-  final String body;
+  final String? title;
+  final String? body;
 
   NotificationMessagePayload({
-    @required this.title,
-    @required this.body,
+    required this.title,
+    required this.body,
   });
 
   NotificationMessagePayload copyWith({
-    String title,
-    String body,
+    String? title,
+    String? body,
   }) {
     return NotificationMessagePayload(
       title: title ?? this.title,
@@ -30,8 +29,6 @@ class NotificationMessagePayload extends Equatable {
   }
 
   factory NotificationMessagePayload.fromMap(Map<String, dynamic> map) {
-    if (map == null) return null;
-
     return NotificationMessagePayload(
       title: map['title'] ?? '',
       body: map['body'] ?? '',
@@ -47,5 +44,5 @@ class NotificationMessagePayload extends Equatable {
   bool get stringify => true;
 
   @override
-  List<Object> get props => [title, body];
+  List<Object?> get props => [title, body];
 }

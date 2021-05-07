@@ -5,7 +5,7 @@ import '../models/user_profile.dart';
 
 abstract class FirebaseUserProfileProvider {
   String get collectionPath;
-  Future<UserProfile> getUser(String uid);
+  Future<UserProfile?> getUser(String uid);
   Future<UserProfile> updateProfile(UserProfile updatedProfile);
   Future<bool> deleteProfile(String uid);
   Future<void> deleteProfileWithDocId(String docId);
@@ -18,7 +18,8 @@ class FirebaseUserProfileProviderImpl
   @override
   String get collectionPath => "users";
 
-  CollectionReference get collection => store.collection(collectionPath);
+  CollectionReference<Map<String, dynamic>> get collection =>
+      store.collection(collectionPath);
 
   @override
   Future<UserProfile> createProfile(UserProfile newProfile) async {
@@ -42,7 +43,7 @@ class FirebaseUserProfileProviderImpl
   }
 
   @override
-  Future<UserProfile> getUser(String uid) async {
+  Future<UserProfile?> getUser(String uid) async {
     final docs = await collection.where('uid', isEqualTo: uid).limit(1).get();
 
     if (docs.docs.isEmpty) return null;

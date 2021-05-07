@@ -11,7 +11,8 @@ abstract class AnalyticRouteAwareState<T extends StatefulWidget>
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    observer.subscribe(this, ModalRoute.of(context));
+    final state = ModalRoute.of(context);
+    if (state != null) observer.subscribe(this, state as PageRoute);
   }
 
   @override

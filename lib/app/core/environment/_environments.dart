@@ -19,23 +19,26 @@ class _Environment {
   bool get isProductionMode => const bool.fromEnvironment('dart.vm.product');
   bool get isDevelopmentMode => !isProductionMode;
 
-  Future<void> loadEnvironment({String path, bool force = false}) async {
+  Future<void> loadEnvironment(
+      {required String path, bool force = false}) async {
     try {
       final _source = await AssetLoader.instance.loadString(
         path,
         fromCache: !force,
       );
 
-      final _parsedData = Map.from(json.decode(_source));
+      if (_source != null) {
+        final _parsedData = Map.from(json.decode(_source));
 
-      _flavours[Environment.production] = <dynamic, dynamic>{
-        ..._parsedData['production'],
-        ..._flavours[Environment.production]
-      };
-      _flavours[Environment.development] = <dynamic, dynamic>{
-        ..._parsedData['development'],
-        ..._flavours[Environment.development]
-      };
+        _flavours[Environment.production] = <dynamic, dynamic>{
+          ..._parsedData['production'],
+          ..._flavours[Environment.production]
+        };
+        _flavours[Environment.development] = <dynamic, dynamic>{
+          ..._parsedData['development'],
+          ..._flavours[Environment.development]
+        };
+      }
       _initialized = true;
     } catch (e) {
       LogService.warning(
@@ -43,8 +46,8 @@ class _Environment {
     }
   }
 
-  T config<T>(String key,
-      {Environment overried, dynamic defaultValue, bool silent = false}) {
+  T? config<T>(String key,
+      {Environment? overried, dynamic defaultValue, bool silent = false}) {
     if (!_initialized)
       LogService.warning(
           "Enviroment variables are not initilaized. call Env.instance.init() in main");

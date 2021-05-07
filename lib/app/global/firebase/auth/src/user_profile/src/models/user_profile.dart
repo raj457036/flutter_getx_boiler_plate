@@ -1,22 +1,21 @@
 import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
 
 // TODO 1 : UPDATE THIS MODEL ACCODING TO THE NEED
 
 class UserProfile with EquatableMixin {
-  final String id;
-  final String uid;
+  final String? id;
+  final String? uid;
 
   UserProfile({
-    @required this.id,
-    @required this.uid,
+    required this.id,
+    required this.uid,
   });
 
   UserProfile copyWith({
-    String id,
-    String uuid,
+    String? id,
+    String? uuid,
   }) {
     return UserProfile(
       id: id ?? this.id,
@@ -32,8 +31,6 @@ class UserProfile with EquatableMixin {
   }
 
   factory UserProfile.fromMap(Map<String, dynamic> map) {
-    if (map == null) return null;
-
     return UserProfile(
       id: map['id'] ?? '',
       uid: map['uuid'] ?? '',
@@ -49,5 +46,5 @@ class UserProfile with EquatableMixin {
   bool get stringify => true;
 
   @override
-  List<Object> get props => [id, uid];
+  List<Object?> get props => [id, uid];
 }

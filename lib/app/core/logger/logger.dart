@@ -10,7 +10,7 @@ export 'src/log_levels.dart';
 export 'src/log_load.dart';
 export 'src/log_writer.dart';
 
-typedef bool LogConditionChecker({int level, Object errorObj});
+typedef bool LogConditionChecker({int? level, Object? errorObj});
 typedef void LogPrinter(
   String message, {
   String name,
@@ -49,11 +49,11 @@ class LogService {
   };
 
   List<LogConditionChecker> _checkers = const [];
-  LogPrinter _writer;
+  late LogPrinter? _writer;
   bool enableColor = true;
   bool enableSeperator = false;
   bool enableSeperatorSpace = false;
-  LogWriter writer;
+  late LogWriter? writer;
 
   static write(LogLoad load) {
     for (var checker in _instance._checkers) {
@@ -66,7 +66,7 @@ class LogService {
     var message = load.message;
 
     if (_instance.writer != null) {
-      _instance.writer.write(load, _name, _timestamp);
+      _instance.writer!.write(load, _name, _timestamp);
     }
 
     if (_instance.enableSeperator == true) {
@@ -78,42 +78,42 @@ class LogService {
 
     final _msg = _instance.enableColor != true
         ? message
-        : instance._colorizer[_level](message);
+        : instance._colorizer[_level]!(message.toString());
 
     if (_instance._writer != null)
-      _instance._writer(
+      _instance._writer!(
         _msg.toString(),
-        name: _name,
+        name: _name.toString(),
         level: _level,
-        errorObj: load.error,
+        errorObj: load.error.toString(),
         time: _timestamp,
       );
     else
       log(
         _msg.toString(),
-        name: _name,
+        name: _name.toString(),
         time: _timestamp,
         level: _level,
         error: load.error,
       );
   }
 
-  static normal(Object message, {Object errorObj}) =>
+  static normal(Object message, {Object? errorObj}) =>
       write(LogLoad(message, level: LogLevel.NORMAL, error: errorObj));
-  static debug(Object message, {Object errorObj}) =>
+  static debug(Object message, {Object? errorObj}) =>
       write(LogLoad(message, level: LogLevel.DEBUG, error: errorObj));
-  static error(Object message, {Object errorObj}) =>
+  static error(Object message, {Object? errorObj}) =>
       write(LogLoad(message, level: LogLevel.ERROR, error: errorObj));
-  static warning(Object message, {Object errorObj}) =>
+  static warning(Object message, {Object? errorObj}) =>
       write(LogLoad(message, level: LogLevel.WARNING, error: errorObj));
-  static info(Object message, {Object errorObj}) =>
+  static info(Object message, {Object? errorObj}) =>
       write(LogLoad(message, level: LogLevel.INFO, error: errorObj));
-  static shout(Object message, {Object errorObj}) =>
+  static shout(Object message, {Object? errorObj}) =>
       write(LogLoad(message, level: LogLevel.SHOUT, error: errorObj));
-  static config(Object message, {Object errorObj}) =>
+  static config(Object message, {Object? errorObj}) =>
       write(LogLoad(message, level: LogLevel.CONFIG, error: errorObj));
 
-  setConditions(List<LogConditionChecker> checkers) =>
+  setConditions(List<LogConditionChecker>? checkers) =>
       _checkers = checkers ?? const [];
 
   setLogWriter(LogPrinter writer) => _writer = writer;

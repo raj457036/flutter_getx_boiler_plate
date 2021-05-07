@@ -1,5 +1,4 @@
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
-import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 
 class DynamicLinkController extends GetxController {
@@ -7,26 +6,26 @@ class DynamicLinkController extends GetxController {
   final String defaultUriPrefix;
 
   /// default [AndroidParameters] for dynamic links
-  final AndroidParameters defaultAndroidParameters;
+  final AndroidParameters? defaultAndroidParameters;
 
   /// default [IosParameters] for dynamic links
-  final IosParameters defaultIosParameters;
+  final IosParameters? defaultIosParameters;
 
   /// default [GoogleAnalyticsParameters] for dynamic links
-  final GoogleAnalyticsParameters defaultGoogleAnalyticsParameters;
+  final GoogleAnalyticsParameters? defaultGoogleAnalyticsParameters;
 
   /// default [ItunesConnectAnalyticsParameters] for dynamic links
-  final ItunesConnectAnalyticsParameters
+  final ItunesConnectAnalyticsParameters?
       defaultItunesConnectAnalyticsParameters;
 
   /// default [SocialMetaTagParameters] for dynamic links
-  final SocialMetaTagParameters defaultSocialMetaTagParameters;
+  final SocialMetaTagParameters? defaultSocialMetaTagParameters;
 
   /// generate short dynamic link by default
   final bool defaultShortURL;
 
   DynamicLinkController({
-    this.defaultUriPrefix,
+    required this.defaultUriPrefix,
     this.defaultAndroidParameters,
     this.defaultIosParameters,
     this.defaultGoogleAnalyticsParameters,
@@ -55,20 +54,21 @@ class DynamicLinkController extends GetxController {
   /// 2. dynamic link `query parameters` will be used as `arguments` for the route
   Future<void> _initDynamicLinks() async {
     FirebaseDynamicLinks.instance.onLink(
-        onSuccess: (PendingDynamicLinkData dynamicLink) async {
-      final Uri deepLink = dynamicLink?.link;
+        onSuccess: (PendingDynamicLinkData? dynamicLink) async {
+      final Uri? deepLink = dynamicLink?.link;
 
       if (deepLink != null && !deepLink.hasEmptyPath) {
         _processDeepLink(deepLink);
       }
+      return true;
     }, onError: (OnLinkErrorException e) async {
       print('onLinkError');
       print(e.message);
     });
 
-    final PendingDynamicLinkData data =
+    final PendingDynamicLinkData? data =
         await FirebaseDynamicLinks.instance.getInitialLink();
-    final Uri deepLink = data?.link;
+    final Uri? deepLink = data?.link;
 
     if (deepLink != null && !deepLink.hasEmptyPath) {
       _processDeepLink(deepLink);
@@ -98,14 +98,14 @@ class DynamicLinkController extends GetxController {
 
   /// generate dynamic link with the provided parameters
   Future<Uri> generateDynamicLink({
-    @required String url,
-    String uriPrefix,
-    AndroidParameters androidParameters,
-    IosParameters iosParameters,
-    GoogleAnalyticsParameters googleAnalyticsParameters,
-    ItunesConnectAnalyticsParameters itunesConnectAnalyticsParameters,
-    SocialMetaTagParameters socialMetaTagParameters,
-    bool shortURL,
+    required String url,
+    String? uriPrefix,
+    AndroidParameters? androidParameters,
+    IosParameters? iosParameters,
+    GoogleAnalyticsParameters? googleAnalyticsParameters,
+    ItunesConnectAnalyticsParameters? itunesConnectAnalyticsParameters,
+    SocialMetaTagParameters? socialMetaTagParameters,
+    bool? shortURL,
   }) async {
     final DynamicLinkParameters parameters = DynamicLinkParameters(
       uriPrefix: uriPrefix ?? defaultUriPrefix,
