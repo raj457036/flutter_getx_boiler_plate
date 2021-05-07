@@ -8,4 +8,5 @@ export 'src/social_auth/firebase_facebook_auth_repo.dart';
 export 'src/social_auth/firebase_github_auth_repo.dart';
 export 'src/social_auth/firebase_google_auth_repo.dart';
 export 'src/social_auth/firebase_twitter_auth_repo.dart';
+export 'src/social_auth/firebase_apple_auth_repo.dart';
 export 'src/user_profile/firebase_user_profile.dart';

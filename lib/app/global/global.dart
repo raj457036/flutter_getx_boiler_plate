@@ -27,6 +27,9 @@ class Modular {
 
     // ** AUTH **
 
+    // Load Firebase Auth Controller
+    Get.put(FirebaseAuthController(), permanent: true);
+
     // Load Firebase Email Auth Repository
     Get.lazyPut(() => FireabaseEmailAuthRepository(), fenix: true);
 
@@ -47,6 +50,9 @@ class Modular {
     // Load Firebase OAuth Twitter Repository
     // TODO 3 : Make sure to setup 'twitter-consumer-key' and 'twitter-consumer-secret' in environment
     Get.lazyPut(() => FirebaseTwitterAuthRepo()..init(), fenix: true);
+
+    // Load Firebase OAuth Apple Repository
+    Get.lazyPut(() => FirebaseAppleAuthRepo(), fenix: true);
 
     // Load Firebase Auth Controller
     Get.lazyPut(() => FirebaseAuthController(), fenix: true);
