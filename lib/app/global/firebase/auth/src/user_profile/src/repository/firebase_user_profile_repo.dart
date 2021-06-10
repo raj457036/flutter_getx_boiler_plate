@@ -1,13 +1,12 @@
 import 'package:get/get.dart';
 
 import '../../../../../../../core/core.dart';
-import '../../../../firebase_auth_controller.dart';
+import '../../../../firebase_auth_service.dart';
 import '../models/user_profile.dart';
 import '../provider/firebase_user_profile_provider.dart';
 
 class FirebaseUserProfileRepository extends BaseRepository {
-  final FirebaseAuthController _authController =
-      Get.find<FirebaseAuthController>();
+  final FirebaseAuthService _authController = Get.find<FirebaseAuthService>();
 
   final FirebaseUserProfileProvider _profileProvider =
       Get.find<FirebaseUserProfileProvider>();

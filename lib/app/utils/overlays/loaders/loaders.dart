@@ -10,6 +10,10 @@ import '../../../core/core.dart';
 import '../../misc/types.dart';
 import 'loader_result.dart';
 
+Widget getProgressIndicator() => CircularProgressIndicator.adaptive(
+      valueColor: AlwaysStoppedAnimation(Env.colors.primaryColor),
+    );
+
 _showCircularLoader(GlobalController _globalController, [Widget? bottom]) {
   Widget child;
   final loader = AspectRatio(
@@ -20,7 +24,7 @@ _showCircularLoader(GlobalController _globalController, [Widget? bottom]) {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        CircularProgressIndicator(),
+        getProgressIndicator(),
         if (bottom != null)
           Padding(
             padding: const EdgeInsets.only(top: 14.0),
@@ -41,7 +45,7 @@ _showCircularLoader(GlobalController _globalController, [Widget? bottom]) {
   }
   if (!_globalController.loaderOpened)
     Get.dialog(
-      child.paddingAll(bottom == null ? Get.width / 3.5 : Get.width / 6),
+      child.paddingAll(bottom == null ? Get.width / 4 : Get.width / 6),
       barrierDismissible: false,
       name: Env.values.loaderRouteName,
     );
@@ -98,19 +102,31 @@ Future<LoaderResult<V?>> showLoader<V>({
 
   if (asyncTask != null) {
     _globalController.startLoading();
-    late V result;
+    V? result;
     bool _timeouted = false;
+    Failure? failure;
     if (timeout != null) {
       try {
         result = await asyncTask().timeout(timeout);
       } on TimeoutException {
         _timeouted = true;
+      } catch (e) {
+        LogService.error(e.toString());
+        failure = BaseGeneralFailure(message: e.toString(), actualException: e);
       }
     } else
       result = await asyncTask();
     Get.until((route) => !(Get.isDialogOpen ?? false));
+    if (linear ?? false)
+      Get.until((route) => !(Get.isBottomSheetOpen ?? false));
     final end = DateTime.now();
-    return LoaderResult(_timeouted, tag, result, end.difference(start));
+    return LoaderResult(
+      _timeouted,
+      tag,
+      result,
+      end.difference(start),
+      failure: failure,
+    );
   }
 
   if (timeout != null) {

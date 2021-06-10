@@ -13,7 +13,7 @@ class FirebaseAccountExistsWithDifferentCredFailure extends Failure {
       : super(
           code: FIREBASE_ACCOUNT_EXIST_WITH_DIFFERENT_CRED_FAILURE_CODE,
           actualException: exception,
-          message: message,
+          msg: message,
         );
 }
 
@@ -22,7 +22,7 @@ class FirebaseInvalidCredFailure extends Failure {
       : super(
           code: FIREBASE_INVALID_CRED_FAILURE_CODE,
           actualException: exception,
-          message: message,
+          msg: message,
         );
 }
 
@@ -31,7 +31,7 @@ class FirebaseInvalidVerificationCodeFailure extends Failure {
       : super(
           code: FIREBASE_INVALID_VERIFICATION_CODE_FAILURE_CODE,
           actualException: exception,
-          message: message,
+          msg: message,
         );
 }
 
@@ -40,7 +40,7 @@ class FirebaseInvalidVerificationIdFailure extends Failure {
       : super(
           code: FIREBASE_INVALID_VERIFICATION_ID_FAILURE_CODE,
           actualException: exception,
-          message: message,
+          msg: message,
         );
 }
 
@@ -49,6 +49,6 @@ class FirebasePhoneAuthInvalidPhoneNumberFailure extends Failure {
       : super(
           code: FIREBASE_PHONE_AUTH_INVALID_PHONE_NUMBER_FAILURE_CODE,
           actualException: exception,
-          message: message,
+          msg: message,
         );
 }

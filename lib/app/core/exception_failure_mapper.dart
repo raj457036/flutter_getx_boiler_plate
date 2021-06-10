@@ -15,6 +15,6 @@ final EXCEPTION_FAILURE_MAP = <Type, FailureCallback>{
   NoInternetConnectionException: (e) => NoInternetConnectionFailure(e),
   SocketException: (e) => NoInternetConnectionFailure(e),
   TimeoutException: (e) => RequestTimeoutFailure(e),
-  BaseException: (e) => Failure(message: LocaleKeys.failures_base, code: 0),
+  BaseException: (e) => Failure(msg: LocaleKeys.failures_base, code: 0),
   GeneralException: (e) => BaseGeneralFailure(actualException: e),
 };

@@ -3,11 +3,11 @@ import 'package:get/get.dart';
 import 'package:github_sign_in/github_sign_in.dart';
 
 import '../../../../../core/core.dart';
-import '../../firebase_auth_controller.dart';
+import '../../firebase_auth_service.dart';
 import '../misc_extensions/extended_auth_repo.dart';
 
 class FirebaseGitHubAuthRepository extends FirebaseAuthExtendedRepo {
-  final FirebaseAuthController _controller = Get.find<FirebaseAuthController>();
+  final FirebaseAuthService _controller = Get.find<FirebaseAuthService>();
 
   FirebaseAuth get auth => _controller.auth;
 
@@ -34,7 +34,7 @@ class FirebaseGitHubAuthRepository extends FirebaseAuthExtendedRepo {
   /// Asynchronously signs in to Firebase with the given Github login Access Token credentials
   /// and returns additional identity provider data.
   ///
-  /// If successful, it also signs the user in into the app and updates [FirebaseAuthController].
+  /// If successful, it also signs the user in into the app and updates [FirebaseAuthService].
   ///
   /// If the user doesn't have an account already, one will be created automatically.
   ///

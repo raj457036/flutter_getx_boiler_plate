@@ -15,7 +15,7 @@ class FirebaseFailure extends Failure {
       : super(
           code: FIREBASE_FAILURE_CODE,
           actualException: exception,
-          message: message,
+          msg: message,
         );
 }
 
@@ -24,7 +24,7 @@ class FirebaseOperationNotAllowedFailure extends Failure {
       : super(
           code: FIREBASE_OPERATION_NOT_ALLOWED_FAILURE_CODE,
           actualException: exception,
-          message: message,
+          msg: message,
         );
 }
 
@@ -33,7 +33,7 @@ class FirebaseInvalidEmailFailure extends Failure {
       : super(
           code: FIREBASE_INVALID_EMAIL_FAILURE_CODE,
           actualException: exception,
-          message: message,
+          msg: message,
         );
 }
 
@@ -42,7 +42,7 @@ class FirebaseUserDisabledFailure extends Failure {
       : super(
           code: FIREBASE_INVALID_EMAIL_FAILURE_CODE,
           actualException: exception,
-          message: message,
+          msg: message,
         );
 }
 
@@ -51,7 +51,7 @@ class FirebaseUserNotFoundFailure extends Failure {
       : super(
           code: FIREBASE_INVALID_EMAIL_FAILURE_CODE,
           actualException: exception,
-          message: message,
+          msg: message,
         );
 }
 
@@ -60,7 +60,7 @@ class FirebaseUserWrongPasswordFailure extends Failure {
       : super(
           code: FIREBASE_INVALID_EMAIL_FAILURE_CODE,
           actualException: exception,
-          message: message,
+          msg: message,
         );
 }
 
@@ -69,7 +69,7 @@ class FirebaseEmailAlreadyInUserFailure extends Failure {
       : super(
           code: FIREBASE_EMAIL_ALREADY_EXIST_FAILURE_CODE,
           actualException: exception,
-          message: message,
+          msg: message,
         );
 }
 
@@ -78,6 +78,6 @@ class FirebaseWeekPasswordFailure extends Failure {
       : super(
           code: FIREBASE_WEEK_PASSWORD_FAILURE_CODE,
           actualException: exception,
-          message: message,
+          msg: message,
         );
 }

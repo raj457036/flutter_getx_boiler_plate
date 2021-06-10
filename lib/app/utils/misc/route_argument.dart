@@ -1,9 +1,23 @@
+import 'dart:collection';
+
+import 'package:get/get.dart';
+
 class RouteArguments {
   final Map<String, dynamic> _data;
 
   const RouteArguments([this._data = const {}]);
 
-  get(String key, {dynamic defaultValue}) => _data[key] ?? defaultValue;
+  T get<T>(String key, {T? defaultValue}) => _data[key] ?? defaultValue;
 
   Map<String, dynamic> get raw => {..._data};
+
+  static RouteArguments get current {
+    final args = Get.arguments;
+    if (args != null) {
+      if (args is RouteArguments) return args;
+      if (args is LinkedHashMap) return RouteArguments(Map.from(args));
+      return RouteArguments({"data": args});
+    }
+    return RouteArguments();
+  }
 }

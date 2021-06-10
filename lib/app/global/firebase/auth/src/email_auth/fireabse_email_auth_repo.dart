@@ -3,11 +3,11 @@ import 'package:get/get.dart';
 
 import '../../../../../../generated/locales.g.dart';
 import '../../../../../core/core.dart';
-import '../../firebase_auth_controller.dart';
+import '../../firebase_auth_service.dart';
 import '../misc_extensions/firebase_failures.dart';
 
 class FireabaseEmailAuthRepository extends BaseRepository {
-  final FirebaseAuthController _controller = Get.find<FirebaseAuthController>();
+  final FirebaseAuthService _controller = Get.find<FirebaseAuthService>();
 
   FirebaseAuth get auth => _controller.auth;
 
@@ -44,7 +44,7 @@ class FireabaseEmailAuthRepository extends BaseRepository {
   ///Attempts to sign in a user with the given email address and password.
   ///
   ///If successful, it also signs the user in into the app and updates
-  ///[FirebaseAuthController].
+  ///[FirebaseAuthService].
   ///
   /// **Important**: You must enable Email & Password accounts in the Auth
   /// section of the Firebase console before being able to use them.

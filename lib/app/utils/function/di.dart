@@ -39,13 +39,13 @@ class DI {
 
   //? DO NOT PUT ANYTHING IN BELOW METHOD USE ABOVE AVAILABLE METHODS
   //? ACCORING TO THE CATEGORY
-  void init() async {
+  Future<void> init() async {
     // Loading Global Modules
     await Modular.loadModules();
-    await Future.microtask(_loadServices);
-    await Future.microtask(_loadProviders);
-    await Future.microtask(_loadRepositories);
-    await Future.microtask(_loadControllers);
+    await _loadServices();
+    await _loadProviders();
+    await _loadRepositories();
+    await _loadControllers();
 
     await _loadExtra();
   }

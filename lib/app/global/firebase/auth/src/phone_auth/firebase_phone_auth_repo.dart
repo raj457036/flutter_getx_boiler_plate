@@ -3,13 +3,13 @@ import 'package:get/get.dart';
 
 import '../../../../../../generated/locales.g.dart';
 import '../../../../../core/core.dart';
-import '../../firebase_auth_controller.dart';
+import '../../firebase_auth_service.dart';
 import '../misc_extensions/extended_auth_failures.dart';
 import '../misc_extensions/extended_auth_repo.dart';
 import '../misc_extensions/firebase_failures.dart';
 
 class FirebasePhoneAuthRepository extends FirebaseAuthExtendedRepo {
-  final FirebaseAuthController _controller = Get.find<FirebaseAuthController>();
+  final FirebaseAuthService _controller = Get.find<FirebaseAuthService>();
 
   FirebaseAuth get auth => _controller.auth;
 

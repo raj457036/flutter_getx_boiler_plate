@@ -5,7 +5,7 @@ import 'package:boiler_plate/app/global/firebase/messaging/messaging.dart';
 import 'package:get/get.dart';
 
 import 'connectivity/connectivity_module.dart';
-import 'firebase/auth/firebase_auth_controller.dart';
+import 'firebase/auth/firebase_auth_service.dart';
 import 'firebase/auth/firebase_auth_module.dart';
 import 'storage/storage.dart';
 
@@ -28,7 +28,7 @@ class Modular {
     // ** AUTH **
 
     // Load Firebase Auth Controller
-    Get.put(FirebaseAuthController(), permanent: true);
+    Get.put(FirebaseAuthService(), permanent: true);
 
     // Load Firebase Email Auth Repository
     Get.lazyPut(() => FireabaseEmailAuthRepository(), fenix: true);
@@ -55,7 +55,7 @@ class Modular {
     Get.lazyPut(() => FirebaseAppleAuthRepo(), fenix: true);
 
     // Load Firebase Auth Controller
-    Get.lazyPut(() => FirebaseAuthController(), fenix: true);
+    Get.lazyPut(() => FirebaseAuthService(), fenix: true);
 
     // Load Firebase External Profile Module
     //? Dependent on [FirebaseAuthController]

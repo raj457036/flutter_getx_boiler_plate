@@ -1,14 +1,14 @@
-import 'package:boiler_plate/app/global/firebase/auth/firebase_auth_module.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:the_apple_sign_in/the_apple_sign_in.dart';
 
 import '../../../../../core/core.dart';
-import '../../firebase_auth_controller.dart';
+import '../../firebase_auth_module.dart';
+import '../../firebase_auth_service.dart';
 import '../misc_extensions/extended_auth_repo.dart';
 
 class FirebaseAppleAuthRepo extends FirebaseAuthExtendedRepo {
-  final FirebaseAuthController _controller = Get.find<FirebaseAuthController>();
+  final FirebaseAuthService _controller = Get.find<FirebaseAuthService>();
 
   FirebaseAuth get auth => _controller.auth;
 
@@ -17,7 +17,7 @@ class FirebaseAppleAuthRepo extends FirebaseAuthExtendedRepo {
   /// Asynchronously signs in to Firebase with the given Apple ID Token/Access Token pair credentials
   /// and returns additional identity provider data.
   ///
-  /// If successful, it also signs the user in into the app and updates [FirebaseAuthController].
+  /// If successful, it also signs the user in into the app and updates [FirebaseAuthService].
   ///
   /// If the user doesn't have an account already, one will be created automatically.
   ///

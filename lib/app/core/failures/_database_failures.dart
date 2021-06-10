@@ -12,7 +12,7 @@ class BaseDatabaseFailure extends Failure {
     Exception? actualException,
   }) : super(
           code: BASE_DATABASE_FAILURE_CODE,
-          message: message ?? LocaleKeys.failures_base_database,
+          msg: message ?? LocaleKeys.failures_base_database,
           actualException: actualException,
         );
 }

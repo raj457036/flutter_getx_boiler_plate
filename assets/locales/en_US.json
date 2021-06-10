@@ -6,11 +6,25 @@
         "timeout": "Connection Timeout, Check your internet connection.",
         "base_general": "Some error encountered.",
         "base_database": "Database error encountered.",
-        "base": "Some Failure encountered."
+        "base": "Some Failure encountered.",
+        "no_access_route": "You don't have access to visit this route."
     },
     "route": {
         "404_not_found": "Page not found",
         "400_error": "Error Encountered"
+    },
+
+    "misc": {
+        "error": "Error Occured",
+        "swipe_to_close": "Swipe To Close",
+        "reconnecting": "Reconnecting..."
+    },
+
+    "signin": {
+        "permission": {
+            "denied": "Permission Denied",
+            "note": "You don't have access to the page. please signin to continue."
+        }
     },
 
     "firebase": {

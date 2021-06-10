@@ -13,8 +13,14 @@ class LocaleKeys {
   static const failures_base_general = 'failures_base_general';
   static const failures_base_database = 'failures_base_database';
   static const failures_base = 'failures_base';
+  static const failures_no_access_route = 'failures_no_access_route';
   static const route_404_not_found = 'route_404_not_found';
   static const route_400_error = 'route_400_error';
+  static const misc_error = 'misc_error';
+  static const misc_swipe_to_close = 'misc_swipe_to_close';
+  static const misc_reconnecting = 'misc_reconnecting';
+  static const signin_permission_denied = 'signin_permission_denied';
+  static const signin_permission_note = 'signin_permission_note';
   static const firebase_failure = 'firebase_failure';
   static const firebase_invalid_email = 'firebase_invalid_email';
   static const firebase_user_disabled = 'firebase_user_disabled';
@@ -42,8 +48,15 @@ class Locales {
     'failures_base_general': 'Some error encountered.',
     'failures_base_database': 'Database error encountered.',
     'failures_base': 'Some Failure encountered.',
+    'failures_no_access_route': 'You don\'t have access to visit this route.',
     'route_404_not_found': 'Page not found',
     'route_400_error': 'Error Encountered',
+    'misc_error': 'Error Occured',
+    'misc_swipe_to_close': 'Swipe To Close',
+    'misc_reconnecting': 'Reconnecting...',
+    'signin_permission_denied': 'Permission Denied',
+    'signin_permission_note':
+        'You don\'t have access to the page. please signin to continue.',
     'firebase_failure': 'Firebase failure',
     'firebase_invalid_email': 'Invalid Email.',
     'firebase_user_disabled': 'User Disabled.',

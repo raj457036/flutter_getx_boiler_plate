@@ -14,7 +14,7 @@ class BaseNetworkFailure extends Failure {
     Exception? actualException,
   }) : super(
           code: BASE_NETWORK_FAILURE_CODE,
-          message: message ?? LocaleKeys.failures_base_network,
+          msg: message ?? LocaleKeys.failures_base_network,
           actualException: actualException,
         );
 }
@@ -23,7 +23,7 @@ class NoInternetConnectionFailure extends Failure {
   NoInternetConnectionFailure([actualException])
       : super(
           code: NO_INTERNET_CONNECTION_FAILURE_CODE,
-          message: LocaleKeys.failures_no_internet,
+          msg: LocaleKeys.failures_no_internet,
           actualException: actualException,
         );
 }
@@ -32,7 +32,7 @@ class RequestTimeoutFailure extends Failure {
   RequestTimeoutFailure([actualException])
       : super(
           code: CONNECTION_REQUEST_TIMEOUT_FAILURE_CODE,
-          message: LocaleKeys.failures_timeout,
+          msg: LocaleKeys.failures_timeout,
           actualException: actualException,
         );
 }

@@ -49,11 +49,11 @@ class LogService {
   };
 
   List<LogConditionChecker> _checkers = const [];
-  late LogPrinter? _writer;
+  LogPrinter? _writer;
   bool enableColor = true;
   bool enableSeperator = false;
   bool enableSeperatorSpace = false;
-  late LogWriter? writer;
+  LogWriter? writer;
 
   static write(LogLoad load) {
     for (var checker in _instance._checkers) {

@@ -10,15 +10,15 @@ const int ENVIRONMENT_FAILURE_CODE = 300001;
 class BaseGeneralFailure extends Failure {
   BaseGeneralFailure({
     String? message,
-    Exception? actualException,
+    Object? actualException,
   }) : super(
           code: BASE_GENERAL_FAILURE_CODE,
-          message: message ?? LocaleKeys.failures_base_general,
+          msg: message ?? LocaleKeys.failures_base_general,
           actualException: actualException,
         );
 }
 
 class EnvironmentFailure extends Failure {
   EnvironmentFailure(String message)
-      : super(code: ENVIRONMENT_FAILURE_CODE, message: message);
+      : super(code: ENVIRONMENT_FAILURE_CODE, msg: message);
 }

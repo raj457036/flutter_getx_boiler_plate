@@ -5,7 +5,7 @@ import '../controllers/global_controller.dart';
 import '../core/core.dart';
 
 class AppRouteObserver extends GetObserver {
-  late GlobalController? _controller;
+  GlobalController? _controller;
 
   AppRouteObserver._();
 
