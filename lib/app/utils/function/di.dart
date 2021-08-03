@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 
-import '../../controllers/global_controller.dart';
 import '../../global/global.dart';
+import '../../services/global_service.dart';
 
 class DI {
   DI._();
@@ -22,13 +22,12 @@ class DI {
   Future<void> _loadControllers() async {
     // ? Load all the controllers here
     // Example: Get.lazyPut(() => MagicController());
-
-    Get.put<GlobalController>(GlobalController());
   }
 
   Future<void> _loadServices() async {
     // ? Load all the services here
     // Example: Get.put(() => MagicService());
+    Get.put<GlobalService>(GlobalService());
   }
 
   Future<void> _loadExtra() async {
@@ -42,9 +41,10 @@ class DI {
   Future<void> init() async {
     // Loading Global Modules
     await Modular.loadModules();
-    await _loadServices();
+
     await _loadProviders();
     await _loadRepositories();
+    await _loadServices();
     await _loadControllers();
 
     await _loadExtra();

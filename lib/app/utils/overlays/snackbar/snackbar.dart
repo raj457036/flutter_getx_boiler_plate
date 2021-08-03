@@ -17,7 +17,7 @@ showSnackbar({
 
   switch (type) {
     case SnackbarType.success:
-      bg = Env.colors.primaryColor;
+      bg = Env.colors.accentColor;
       icon = Icons.check_circle_outline;
       break;
     case SnackbarType.info:
@@ -25,7 +25,7 @@ showSnackbar({
       icon = Icons.info_outline;
       break;
     default:
-      bg = Env.colors.accentColor;
+      bg = Env.colors.primaryColor;
       icon = Icons.cancel_outlined;
   }
 
@@ -61,6 +61,8 @@ showSnackbar({
         blurRadius: 10,
       )
     ],
+    forwardAnimationCurve: Curves.fastLinearToSlowEaseIn,
+    reverseAnimationCurve: Curves.easeIn,
   );
 }
 

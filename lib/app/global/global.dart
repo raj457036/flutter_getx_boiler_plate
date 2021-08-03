@@ -1,14 +1,15 @@
-// ---- MODULES EXPORT ----
 // ---- MODULES IMPORT ----
-import 'package:boiler_plate/app/global/firebase/dynamic_link/dynamic_link_controller.dart';
-import 'package:boiler_plate/app/global/firebase/messaging/messaging.dart';
+
 import 'package:get/get.dart';
 
 import 'connectivity/connectivity_module.dart';
-import 'firebase/auth/firebase_auth_service.dart';
 import 'firebase/auth/firebase_auth_module.dart';
+import 'firebase/auth/firebase_auth_service.dart';
+import 'firebase/dynamic_link/dynamic_link_controller.dart';
+import 'firebase/messaging/src/service/messaging_service.dart';
 import 'storage/storage.dart';
 
+// ---- MODULES EXPORT ----
 export 'connectivity/connectivity_module.dart';
 export 'firebase/messaging/messaging.dart';
 export 'storage/storage.dart';

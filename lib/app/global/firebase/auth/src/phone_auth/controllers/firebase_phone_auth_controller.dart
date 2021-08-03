@@ -3,12 +3,12 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
-import '../../../../../../controllers/global_controller.dart';
 import '../../../../../../core/core.dart';
+import '../../../../../../services/global_service.dart';
 import '../firebase_phone_auth_repo.dart';
 
 class FirebasePhoneAuthController extends GetxController {
-  final GlobalController _globalController = Get.find<GlobalController>();
+  final GlobalService _globalController = Get.find<GlobalService>();
   final FirebasePhoneAuthRepository _repository =
       FirebasePhoneAuthRepository.instance;
 

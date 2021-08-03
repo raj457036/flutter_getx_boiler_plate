@@ -1,20 +1,21 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../controllers/global_controller.dart';
 import '../../../core/core.dart';
+import '../../../services/global_service.dart';
 import '../../misc/types.dart';
 import 'loader_result.dart';
 
-Widget getProgressIndicator() => CircularProgressIndicator.adaptive(
-      valueColor: AlwaysStoppedAnimation(Env.colors.primaryColor),
+Widget getProgressIndicator({double stokeWidth = 4}) =>
+    CircularProgressIndicator(
+      valueColor: AlwaysStoppedAnimation(Env.colors.accentColor),
+      strokeWidth: stokeWidth,
     );
 
-_showCircularLoader(GlobalController _globalController, [Widget? bottom]) {
+_showCircularLoader(GlobalService _globalController, [Widget? bottom]) {
   Widget child;
   final loader = AspectRatio(
     aspectRatio: 1,
@@ -34,24 +35,23 @@ _showCircularLoader(GlobalController _globalController, [Widget? bottom]) {
     )),
   );
 
-  if (Platform.isIOS || Platform.isMacOS) {
-    child = CupertinoAlertDialog(
-      content: loader,
-    );
-  } else {
-    child = AlertDialog(
-      content: loader,
-    );
-  }
+  child = Center(
+    child: SizedBox.fromSize(
+      size: Size.square(200),
+      child: AlertDialog(
+        content: loader,
+      ),
+    ),
+  );
   if (!_globalController.loaderOpened)
     Get.dialog(
-      child.paddingAll(bottom == null ? Get.width / 4 : Get.width / 6),
+      child,
       barrierDismissible: false,
       name: Env.values.loaderRouteName,
     );
 }
 
-_showLinearLoader(GlobalController _globalController, [Widget? bottom]) {
+_showLinearLoader(GlobalService _globalController, [Widget? bottom]) {
   final loader = IntrinsicHeight(
     child: Container(
       padding: EdgeInsets.all(10.0),
@@ -84,14 +84,26 @@ _showLinearLoader(GlobalController _globalController, [Widget? bottom]) {
     );
 }
 
+/// show an overlayed loading widget till the `asyncTask` or the `future` is completed.
+///
+/// `asyncTask` and `future` are optional but one of them can have a non-null
+/// value.
 Future<LoaderResult<V?>> showLoader<V>({
   AsyncTask<V>? asyncTask,
+  Future<V>? future,
   Duration? timeout,
   Widget? bottom,
   bool? linear,
   String? tag,
 }) async {
-  final GlobalController _globalController = Get.find<GlobalController>();
+  assert(
+    (future == null && asyncTask != null) ||
+        (future != null && asyncTask == null) ||
+        (future == null && asyncTask == null),
+    "asyncTask or future can be processed not both.",
+  );
+
+  final GlobalService _globalController = Get.find<GlobalService>();
 
   final DateTime start = DateTime.now();
 
@@ -100,14 +112,20 @@ Future<LoaderResult<V?>> showLoader<V>({
   else
     _showCircularLoader(_globalController, bottom);
 
-  if (asyncTask != null) {
+  Future<V>? _future;
+
+  if (asyncTask != null)
+    _future = asyncTask();
+  else if (future != null) _future = future;
+
+  if (_future != null) {
     _globalController.startLoading();
     V? result;
     bool _timeouted = false;
     Failure? failure;
     if (timeout != null) {
       try {
-        result = await asyncTask().timeout(timeout);
+        result = await _future.timeout(timeout);
       } on TimeoutException {
         _timeouted = true;
       } catch (e) {
@@ -115,11 +133,12 @@ Future<LoaderResult<V?>> showLoader<V>({
         failure = BaseGeneralFailure(message: e.toString(), actualException: e);
       }
     } else
-      result = await asyncTask();
+      result = await _future;
     Get.until((route) => !(Get.isDialogOpen ?? false));
     if (linear ?? false)
       Get.until((route) => !(Get.isBottomSheetOpen ?? false));
     final end = DateTime.now();
+    _globalController.stopLoading();
     return LoaderResult(
       _timeouted,
       tag,
@@ -134,8 +153,10 @@ Future<LoaderResult<V?>> showLoader<V>({
     await Future.delayed(timeout);
     Get.until((route) => !(Get.isDialogOpen ?? false));
     final end = DateTime.now();
+    _globalController.stopLoading();
     return LoaderResult(true, tag, null, end.difference(start));
   }
   final end = DateTime.now();
+  _globalController.stopLoading();
   return LoaderResult(true, tag, null, end.difference(start));
 }

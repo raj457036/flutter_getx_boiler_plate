@@ -17,7 +17,12 @@
     "misc": {
         "error": "Error Occured",
         "swipe_to_close": "Swipe To Close",
-        "reconnecting": "Reconnecting..."
+        "reconnecting": "Reconnecting...",
+        "yes": "Yes",
+        "no": "No",
+        "cancel": "Cancel",
+        "ok": "Ok",
+        "close": "Close"
     },
 
     "signin": {

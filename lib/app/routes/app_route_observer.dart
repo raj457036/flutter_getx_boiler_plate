@@ -1,20 +1,20 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
-import '../controllers/global_controller.dart';
 import '../core/core.dart';
+import '../services/global_service.dart';
 
 class AppRouteObserver extends GetObserver {
-  GlobalController? _controller;
+  GlobalService? _controller;
 
   AppRouteObserver._();
 
   static AppRouteObserver _instance = AppRouteObserver._();
   static AppRouteObserver get instance => _instance;
 
-  GlobalController get controller {
+  GlobalService get controller {
     if (_controller != null) return _controller!;
-    _controller = Get.find<GlobalController>();
+    _controller = Get.find<GlobalService>();
     return _controller!;
   }
 

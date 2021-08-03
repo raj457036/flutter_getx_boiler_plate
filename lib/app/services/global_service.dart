@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 import '../core/core.dart';
 
-class GlobalController extends GetxController {
+class GlobalService extends GetxService {
   final _loaderOpened = false.obs;
 
   final RxList<Route> _routeStack = RxList<Route>();
