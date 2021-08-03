@@ -5,8 +5,6 @@ import '../controllers/entry_controller.dart';
 class EntryBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<EntryController>(
-      () => EntryController(),
-    );
+    Get.put<EntryController>(EntryController());
   }
 }

@@ -14,8 +14,7 @@ class EntryController extends GetxController {
   @override
   void onReady() {
     super.onReady();
-
-    2.delay(checkSystemHealth);
+    checkSystemHealth();
   }
 
   @override
@@ -23,9 +22,18 @@ class EntryController extends GetxController {
     super.onClose();
   }
 
-  checkSystemHealth() {
+  checkSystemHealth() async {
+    await 3.delay();
+
     final isLoggedIn = _authService.isAuthenticated;
 
-    if (isLoggedIn) Get.offAllNamed(Routes.SYSTEM_CHECK);
+    if (isLoggedIn) {
+      Get.offNamed(Routes.HOME);
+    } else {
+      Get.offNamed(
+        Routes.SIGNIN,
+        parameters: {"successRoute": Routes.ENTRY},
+      );
+    }
   }
 }

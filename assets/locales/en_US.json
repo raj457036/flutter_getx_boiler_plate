@@ -26,6 +26,7 @@
     },
 
     "signin": {
+        "sign_in": "Sign in",
         "permission": {
             "denied": "Permission Denied",
             "note": "You don't have access to the page. please signin to continue."

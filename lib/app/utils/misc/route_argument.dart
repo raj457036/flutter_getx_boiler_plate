@@ -21,3 +21,18 @@ class RouteArguments {
     return RouteArguments();
   }
 }
+
+class RouteParameters {
+  final Map<String, dynamic> _data;
+
+  const RouteParameters([this._data = const {}]);
+
+  T get<T>(String key, {T? defaultValue}) => _data[key] ?? defaultValue;
+
+  Map<String, dynamic> get raw => {..._data};
+
+  static RouteParameters get current {
+    final args = Get.parameters;
+    return RouteParameters(Map.from(args));
+  }
+}

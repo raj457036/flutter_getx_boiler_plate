@@ -24,6 +24,7 @@ class LocaleKeys {
   static const misc_cancel = 'misc_cancel';
   static const misc_ok = 'misc_ok';
   static const misc_close = 'misc_close';
+  static const signin_sign_in = 'signin_sign_in';
   static const signin_permission_denied = 'signin_permission_denied';
   static const signin_permission_note = 'signin_permission_note';
   static const firebase_failure = 'firebase_failure';
@@ -64,6 +65,7 @@ class Locales {
     'misc_cancel': 'Cancel',
     'misc_ok': 'Ok',
     'misc_close': 'Close',
+    'signin_sign_in': 'Sign in',
     'signin_permission_denied': 'Permission Denied',
     'signin_permission_note':
         'You don\'t have access to the page. please signin to continue.',

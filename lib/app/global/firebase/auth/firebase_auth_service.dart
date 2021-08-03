@@ -19,6 +19,7 @@ class FirebaseAuthService extends GetxService {
   void onInit() {
     super.onInit();
     auth.setLanguageCode(Get.locale.toString());
+    firebaseUserListener.value = auth.currentUser;
     // subscribing to auth state change
     _authSubscription = auth.authStateChanges().listen(_onAuthStateChange);
   }
